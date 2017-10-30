@@ -6,26 +6,26 @@ from raysect.core import World
 from raysect.core.ray import Ray as CoreRay
 
 from cherab.aug.machine import plot_aug_wall_outline, import_mesh_segment, VESSEL, PSL, ICRH, DIVERTOR, A_B_COILS
-from cherab.aug.bolometry import FDC_TUBE, FLX_TUBE, FVC_TUBE, FHS_TUBE, AUG_FOIL_BOLOMETER_DETECTORS,\
-    FDC_FOILS, FHC1_FOILS, FHC2_FOILS, FHC3_FOILS,\
-    FHS_FOILS, FLH_FOILS, FLX_FOILS, FVC1_FOILS, FVC2_FOILS
+from cherab.aug.bolometry import FDC_TUBE, FLX_TUBE, FVC_TUBE, FHS_TUBE, load_default_bolometer_config
 
 
-def plot_detectors(detector_dictionary, title, world):
+def plot_detectors(camera, world):
 
     plt.figure()
     plot_aug_wall_outline()
 
-    for detector_name, detector in sorted(detector_dictionary.items()):
-        # unpack detector configuration
-        pinhole_name, centre_point, normal_vec, basis_x, dx, basis_y, dy = detector
+    for detector in camera.foil_detectors:
 
+        centre_point = detector.centre_point
+        sightline_vec = centre_point.vector_to(detector._slit.centre_point)
+
+        # TODO - move this into bolometry utility function
         # Find the next intersection point of the ray with the world
-        intersection = world.hit(CoreRay(centre_point, normal_vec))
+        intersection = world.hit(CoreRay(centre_point, sightline_vec))
         if intersection is not None:
             hit_point = intersection.hit_point.transform(intersection.primitive_to_world)
         else:
-            hit_point = centre_point + normal_vec * 2.0
+            hit_point = centre_point + sightline_vec * 2.0
 
         # Traverse the ray with equation for a parametric line,
         # i.e. t=0->1 traverses the ray path.
@@ -49,35 +49,35 @@ def plot_detectors(detector_dictionary, title, world):
         plt.plot(ray_r_points[0], ray_z_points[0], 'b.')
         plt.plot(ray_r_points[-1], ray_z_points[-1], 'r.')
 
-    plt.title(title)
+    plt.title(camera.name)
 
 
 full_world = World()
 FULL_MESH_SEGMENTS = VESSEL + PSL + ICRH + DIVERTOR + A_B_COILS
 import_mesh_segment(full_world, FULL_MESH_SEGMENTS)
 
-fhc = FHC1_FOILS.copy()
-fhc.update(FHC2_FOILS)
-fhc.update(FHC3_FOILS)
+fhc = load_default_bolometer_config('FHC', parent=full_world)
+plot_detectors(fhc, full_world)
 
-fvc = FVC1_FOILS.copy()
-fvc.update(FVC2_FOILS)
-
-plot_detectors(fhc, 'FHC', full_world)
-plot_detectors(FLH_FOILS, 'FLH', full_world)
+flh = load_default_bolometer_config('FLH', parent=full_world)
+plot_detectors(flh, full_world)
 
 fhs_world = World()
 import_mesh_segment(fhs_world, FHS_TUBE)
-plot_detectors(FHS_FOILS, 'FHS', fhs_world)
+fhs = load_default_bolometer_config('FHS', parent=fhs_world)
+plot_detectors(fhs, fhs_world)
 
 fvc_world = World()
 import_mesh_segment(fvc_world, FVC_TUBE)
-plot_detectors(fvc, 'FVC', fvc_world)
+fvc = load_default_bolometer_config('FVC', parent=fvc_world)
+plot_detectors(fvc, fvc_world)
 
 fdc_world = World()
 import_mesh_segment(fdc_world, FDC_TUBE)
-plot_detectors(FDC_FOILS, 'FDC', fdc_world)
+fdc = load_default_bolometer_config('FDC', parent=fdc_world)
+plot_detectors(fdc, fdc_world)
 
 flx_world = World()
 import_mesh_segment(flx_world, FLX_TUBE)
-plot_detectors(FLX_FOILS, 'FLX', flx_world)
+flx = load_default_bolometer_config('FLX', parent=flx_world)
+plot_detectors(flx, flx_world)
