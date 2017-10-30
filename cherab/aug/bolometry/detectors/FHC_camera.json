@@ -1,0 +1,1230 @@
+{
+    "CHERAB_Object_Type": "BolometerCamera",
+    "Camera_ID": "FHC",
+    "Version": 1,
+    "foil_detectors": [
+        {
+            "CHERAB_Object_Type": "BolometerFoil",
+            "Detector_ID": "FHC1_A_CH1",
+            "Version": 1,
+            "basis_x": [
+                -0.2257390201948394,
+                0.6487060580338954,
+                -0.7267890650192795
+            ],
+            "basis_y": [
+                0.9442694019843569,
+                0.3291731401320987,
+                0.0005833452483355534
+            ],
+            "centre_point": [
+                -0.738357,
+                2.28315,
+                -0.0472395
+            ],
+            "dx": 0.00470013,
+            "dy": 0.0119998,
+            "ray_type": "Targeted",
+            "slit_id": "SLIT_FHC1_OBEN"
+        },
+        {
+            "CHERAB_Object_Type": "BolometerFoil",
+            "Detector_ID": "FHC1_A_CH2",
+            "Version": 1,
+            "basis_x": [
+                -0.2568511102442445,
+                0.7358233158261044,
+                -0.6265712689335317
+            ],
+            "basis_y": [
+                0.9442949422687881,
+                0.3290999798798661,
+                0.0005150229685131214
+            ],
+            "centre_point": [
+                -0.739658,
+                2.28689,
+                -0.0504238
+            ],
+            "dx": 0.00138213,
+            "dy": 0.00388332,
+            "ray_type": "Targeted",
+            "slit_id": "SLIT_FHC1_OBEN"
+        },
+        {
+            "CHERAB_Object_Type": "BolometerFoil",
+            "Detector_ID": "FHC1_A_CH3",
+            "Version": 1,
+            "basis_x": [
+                -0.25605898751891704,
+                0.7356259641433845,
+                -0.6271269694319509
+            ],
+            "basis_y": [
+                0.9442947857228583,
+                0.3290999253214225,
+                0.0007725348246982228
+            ],
+            "centre_point": [
+                -0.740959,
+                2.29063,
+                -0.0536083
+            ],
+            "dx": 0.0013825,
+            "dy": 0.00388332,
+            "ray_type": "Targeted",
+            "slit_id": "SLIT_FHC1_OBEN"
+        },
+        {
+            "CHERAB_Object_Type": "BolometerFoil",
+            "Detector_ID": "FHC1_A_CH4",
+            "Version": 1,
+            "basis_x": [
+                -0.25605898751891704,
+                0.7356259641433845,
+                -0.6271269694319509
+            ],
+            "basis_y": [
+                0.9441871673179304,
+                0.32940905837406376,
+                0.0005151050912809671
+            ],
+            "centre_point": [
+                -0.742261,
+                2.29436,
+                -0.0567925
+            ],
+            "dx": 0.0013825,
+            "dy": 0.00388271,
+            "ray_type": "Targeted",
+            "slit_id": "SLIT_FHC1_OBEN"
+        },
+        {
+            "CHERAB_Object_Type": "BolometerFoil",
+            "Detector_ID": "FHC1_B_CH5",
+            "Version": 1,
+            "basis_x": [
+                -0.22780203923560152,
+                0.6552021128490731,
+                -0.7202891240593681
+            ],
+            "basis_y": [
+                0.9442668882036064,
+                0.329179961026768,
+                0.0007727229085135405
+            ],
+            "centre_point": [
+                -0.743684,
+                2.29846,
+                -0.0607995
+            ],
+            "dx": 0.00138278,
+            "dy": 0.00388238,
+            "ray_type": "Targeted",
+            "slit_id": "SLIT_FHC1_OBEN"
+        },
+        {
+            "CHERAB_Object_Type": "BolometerFoil",
+            "Detector_ID": "FHC1_B_CH6",
+            "Version": 1,
+            "basis_x": [
+                -0.2279100912186392,
+                0.6547892620725793,
+                -0.720630288424764
+            ],
+            "basis_y": [
+                0.9442670448213069,
+                0.3291800156251121,
+                0.000515148024452413
+            ],
+            "centre_point": [
+                -0.744842,
+                2.30178,
+                -0.064459
+            ],
+            "dx": 0.00138212,
+            "dy": 0.00388238,
+            "ray_type": "Targeted",
+            "slit_id": "SLIT_FHC1_OBEN"
+        },
+        {
+            "CHERAB_Object_Type": "BolometerFoil",
+            "Detector_ID": "FHC1_B_CH7",
+            "Version": 1,
+            "basis_x": [
+                -0.22780203923560152,
+                0.6552021128490731,
+                -0.7202891240593681
+            ],
+            "basis_y": [
+                0.9442949422687881,
+                0.3290999798798661,
+                0.0005150229685131214
+            ],
+            "centre_point": [
+                -0.746,
+                2.30511,
+                -0.0681187
+            ],
+            "dx": 0.00138278,
+            "dy": 0.00388332,
+            "ray_type": "Targeted",
+            "slit_id": "SLIT_FHC1_OBEN"
+        },
+        {
+            "CHERAB_Object_Type": "BolometerFoil",
+            "Detector_ID": "FHC1_B_CH8",
+            "Version": 1,
+            "basis_x": [
+                -0.2284880292601789,
+                0.6550940838913537,
+                -0.7201700922249878
+            ],
+            "basis_y": [
+                0.9442949422687881,
+                0.3290999798798661,
+                0.0005150229685131214
+            ],
+            "centre_point": [
+                -0.747158,
+                2.30844,
+                -0.071778
+            ],
+            "dx": 0.00138301,
+            "dy": 0.00388332,
+            "ray_type": "Targeted",
+            "slit_id": "SLIT_FHC1_OBEN"
+        },
+        {
+            "CHERAB_Object_Type": "BolometerFoil",
+            "Detector_ID": "FHC1_C_CH10",
+            "Version": 1,
+            "basis_x": [
+                -0.1959671064153608,
+                0.5633133058941359,
+                -0.8026674358698067
+            ],
+            "basis_y": [
+                0.9442949422687881,
+                0.3290999798798661,
+                0.0005150229685131214
+            ],
+            "centre_point": [
+                -0.749931,
+                2.31641,
+                -0.079171
+            ],
+            "dx": 0.00138289,
+            "dy": 0.00388332,
+            "ray_type": "Targeted",
+            "slit_id": "SLIT_FHC1_OBEN"
+        },
+        {
+            "CHERAB_Object_Type": "BolometerFoil",
+            "Detector_ID": "FHC1_C_CH11",
+            "Version": 1,
+            "basis_x": [
+                -0.19588704646264996,
+                0.5638071337299936,
+                -0.8023401903078946
+            ],
+            "basis_y": [
+                0.9442670448213069,
+                0.3291800156251121,
+                0.000515148024452413
+            ],
+            "centre_point": [
+                -0.750927,
+                2.31927,
+                -0.083247
+            ],
+            "dx": 0.00138345,
+            "dy": 0.00388238,
+            "ray_type": "Targeted",
+            "slit_id": "SLIT_FHC1_OBEN"
+        },
+        {
+            "CHERAB_Object_Type": "BolometerFoil",
+            "Detector_ID": "FHC1_C_CH12",
+            "Version": 1,
+            "basis_x": [
+                -0.19588704646264996,
+                0.5638071337299936,
+                -0.8023401903078946
+            ],
+            "basis_y": [
+                0.9442670448213069,
+                0.3291800156251121,
+                0.000515148024452413
+            ],
+            "centre_point": [
+                -0.751923,
+                2.32213,
+                -0.087323
+            ],
+            "dx": 0.00138345,
+            "dy": 0.00388238,
+            "ray_type": "Targeted",
+            "slit_id": "SLIT_FHC1_OBEN"
+        },
+        {
+            "CHERAB_Object_Type": "BolometerFoil",
+            "Detector_ID": "FHC1_C_CH9",
+            "Version": 1,
+            "basis_x": [
+                -0.19588704646264996,
+                0.5638071337299936,
+                -0.8023401903078946
+            ],
+            "basis_y": [
+                0.9442949422687881,
+                0.3290999798798661,
+                0.0005150229685131214
+            ],
+            "centre_point": [
+                -0.748935,
+                2.31354,
+                -0.075095
+            ],
+            "dx": 0.00138345,
+            "dy": 0.00388332,
+            "ray_type": "Targeted",
+            "slit_id": "SLIT_FHC1_OBEN"
+        },
+        {
+            "CHERAB_Object_Type": "BolometerFoil",
+            "Detector_ID": "FHC2_D_CH13",
+            "Version": 1,
+            "basis_x": [
+                0.05629710101919118,
+                -0.15963200288994506,
+                -0.9855700178425575
+            ],
+            "basis_y": [
+                0.9442694019843569,
+                0.3291731401320987,
+                0.0005833452483355534
+            ],
+            "centre_point": [
+                -0.733387,
+                2.26908,
+                -0.155392
+            ],
+            "dx": 0.00539992,
+            "dy": 0.0119998,
+            "ray_type": "Targeted",
+            "slit_id": "SLIT_FHC2_MITTE"
+        },
+        {
+            "CHERAB_Object_Type": "BolometerFoil",
+            "Detector_ID": "FHC2_D_CH14",
+            "Version": 1,
+            "basis_x": [
+                -0.1373379416011042,
+                0.39611083156558996,
+                -0.9078736139536101
+            ],
+            "basis_y": [
+                0.9442670448213069,
+                0.3291800156251121,
+                0.000515148024452413
+            ],
+            "centre_point": [
+                -0.734085,
+                2.27109,
+                -0.160005
+            ],
+            "dx": 0.00138345,
+            "dy": 0.00388238,
+            "ray_type": "Targeted",
+            "slit_id": "SLIT_FHC2_MITTE"
+        },
+        {
+            "CHERAB_Object_Type": "BolometerFoil",
+            "Detector_ID": "FHC2_D_CH15",
+            "Version": 1,
+            "basis_x": [
+                -0.13746695482431082,
+                0.3957608699413246,
+                -0.9080067016022608
+            ],
+            "basis_y": [
+                0.9442670448213069,
+                0.3291800156251121,
+                0.000515148024452413
+            ],
+            "centre_point": [
+                -0.734783,
+                2.2731,
+                -0.164617
+            ],
+            "dx": 0.00138215,
+            "dy": 0.00388238,
+            "ray_type": "Targeted",
+            "slit_id": "SLIT_FHC2_MITTE"
+        },
+        {
+            "CHERAB_Object_Type": "BolometerFoil",
+            "Detector_ID": "FHC2_D_CH16",
+            "Version": 1,
+            "basis_x": [
+                -0.13742792848018837,
+                0.39637079372195433,
+                -0.9077465275933982
+            ],
+            "basis_y": [
+                0.9442670448213069,
+                0.3291800156251121,
+                0.000515148024452413
+            ],
+            "centre_point": [
+                -0.735481,
+                2.27511,
+                -0.16923
+            ],
+            "dx": 0.00138254,
+            "dy": 0.00388238,
+            "ray_type": "Targeted",
+            "slit_id": "SLIT_FHC2_MITTE"
+        },
+        {
+            "CHERAB_Object_Type": "BolometerFoil",
+            "Detector_ID": "FHC2_E_CH17",
+            "Version": 1,
+            "basis_x": [
+                -0.0614890329096156,
+                0.17650909446963423,
+                -0.9823765257788634
+            ],
+            "basis_y": [
+                0.9442949422687881,
+                0.3290999798798661,
+                0.0005150229685131214
+            ],
+            "centre_point": [
+                -0.736644,
+                2.27846,
+                -0.17391
+            ],
+            "dx": 0.00138236,
+            "dy": 0.00388332,
+            "ray_type": "Targeted",
+            "slit_id": "SLIT_FHC2_MITTE"
+        },
+        {
+            "CHERAB_Object_Type": "BolometerFoil",
+            "Detector_ID": "FHC2_E_CH18",
+            "Version": 1,
+            "basis_x": [
+                -0.0607681975139658,
+                0.1765169927786688,
+                -0.9824199598090824
+            ],
+            "basis_y": [
+                0.9441871673179304,
+                0.32940905837406376,
+                0.0005151050912809671
+            ],
+            "centre_point": [
+                -0.736955,
+                2.27936,
+                -0.1789
+            ],
+            "dx": 0.0013823,
+            "dy": 0.00388271,
+            "ray_type": "Targeted",
+            "slit_id": "SLIT_FHC2_MITTE"
+        },
+        {
+            "CHERAB_Object_Type": "BolometerFoil",
+            "Detector_ID": "FHC2_E_CH19",
+            "Version": 1,
+            "basis_x": [
+                -0.060717277249747785,
+                0.17709193364514453,
+                -0.9823196319331103
+            ],
+            "basis_y": [
+                0.9442670448213069,
+                0.3291800156251121,
+                0.000515148024452413
+            ],
+            "centre_point": [
+                -0.737265,
+                2.28026,
+                -0.183891
+            ],
+            "dx": 0.00138346,
+            "dy": 0.00388238,
+            "ray_type": "Targeted",
+            "slit_id": "SLIT_FHC2_MITTE"
+        },
+        {
+            "CHERAB_Object_Type": "BolometerFoil",
+            "Detector_ID": "FHC2_E_CH20",
+            "Version": 1,
+            "basis_x": [
+                -0.0607681975139658,
+                0.1765169927786688,
+                -0.9824199598090824
+            ],
+            "basis_y": [
+                0.9442670448213069,
+                0.3291800156251121,
+                0.000515148024452413
+            ],
+            "centre_point": [
+                -0.737575,
+                2.28115,
+                -0.188881
+            ],
+            "dx": 0.0013823,
+            "dy": 0.00388238,
+            "ray_type": "Targeted",
+            "slit_id": "SLIT_FHC2_MITTE"
+        },
+        {
+            "CHERAB_Object_Type": "BolometerFoil",
+            "Detector_ID": "FHC2_F_CH21",
+            "Version": 1,
+            "basis_x": [
+                0.01663389948898458,
+                -0.04700879855582746,
+                -0.9987559693168939
+            ],
+            "basis_y": [
+                0.9442949422687881,
+                0.3290999798798661,
+                0.0005150229685131214
+            ],
+            "centre_point": [
+                -0.737058,
+                2.27968,
+                -0.194542
+            ],
+            "dx": 0.00138272,
+            "dy": 0.00388332,
+            "ray_type": "Targeted",
+            "slit_id": "SLIT_FHC2_MITTE"
+        },
+        {
+            "CHERAB_Object_Type": "BolometerFoil",
+            "Detector_ID": "FHC2_F_CH22",
+            "Version": 1,
+            "basis_x": [
+                0.017356894702842737,
+                -0.047008185653554024,
+                -0.9987436951930336
+            ],
+            "basis_y": [
+                0.9442668882036064,
+                0.329179961026768,
+                0.0007727229085135405
+            ],
+            "centre_point": [
+                -0.736972,
+                2.27944,
+                -0.199615
+            ],
+            "dx": 0.00138274,
+            "dy": 0.00388238,
+            "ray_type": "Targeted",
+            "slit_id": "SLIT_FHC2_MITTE"
+        },
+        {
+            "CHERAB_Object_Type": "BolometerFoil",
+            "Detector_ID": "FHC2_F_CH23",
+            "Version": 1,
+            "basis_x": [
+                0.017356894702842737,
+                -0.047008185653554024,
+                -0.9987436951930336
+            ],
+            "basis_y": [
+                0.9442670448213069,
+                0.3291800156251121,
+                0.000515148024452413
+            ],
+            "centre_point": [
+                -0.736886,
+                2.2792,
+                -0.204688
+            ],
+            "dx": 0.00138274,
+            "dy": 0.00388238,
+            "ray_type": "Targeted",
+            "slit_id": "SLIT_FHC2_MITTE"
+        },
+        {
+            "CHERAB_Object_Type": "BolometerFoil",
+            "Detector_ID": "FHC2_F_CH24",
+            "Version": 1,
+            "basis_x": [
+                0.01663389948898458,
+                -0.04700879855582746,
+                -0.9987559693168939
+            ],
+            "basis_y": [
+                0.9442949422687881,
+                0.3290999798798661,
+                0.0005150229685131214
+            ],
+            "centre_point": [
+                -0.736799,
+                2.27897,
+                -0.209762
+            ],
+            "dx": 0.00138272,
+            "dy": 0.00388332,
+            "ray_type": "Targeted",
+            "slit_id": "SLIT_FHC2_MITTE"
+        },
+        {
+            "CHERAB_Object_Type": "BolometerFoil",
+            "Detector_ID": "FHC2_G_CH25",
+            "Version": 1,
+            "basis_x": [
+                0.0961840255167597,
+                -0.2719190721376921,
+                -0.9575012540164989
+            ],
+            "basis_y": [
+                0.9442668882036064,
+                0.329179961026768,
+                0.0007727229085135405
+            ],
+            "centre_point": [
+                -0.737106,
+                2.27986,
+                -0.215666
+            ],
+            "dx": 0.00138277,
+            "dy": 0.00388238,
+            "ray_type": "Targeted",
+            "slit_id": "SLIT_FHC2_MITTE"
+        },
+        {
+            "CHERAB_Object_Type": "BolometerFoil",
+            "Detector_ID": "FHC2_G_CH26",
+            "Version": 1,
+            "basis_x": [
+                0.09544872002410842,
+                -0.27260705719001016,
+                -0.9573792008477947
+            ],
+            "basis_y": [
+                0.9442949422687881,
+                0.3290999798798661,
+                0.0005150229685131214
+            ],
+            "centre_point": [
+                -0.736621,
+                2.27847,
+                -0.220529
+            ],
+            "dx": 0.00138294,
+            "dy": 0.00388332,
+            "ray_type": "Targeted",
+            "slit_id": "SLIT_FHC2_MITTE"
+        },
+        {
+            "CHERAB_Object_Type": "BolometerFoil",
+            "Detector_ID": "FHC2_G_CH27",
+            "Version": 1,
+            "basis_x": [
+                0.09544872002410842,
+                -0.27260705719001016,
+                -0.9573792008477947
+            ],
+            "basis_y": [
+                0.9441870107406752,
+                0.3294090037472186,
+                0.0007726570087894219
+            ],
+            "centre_point": [
+                -0.736135,
+                2.27709,
+                -0.225393
+            ],
+            "dx": 0.00138294,
+            "dy": 0.00388271,
+            "ray_type": "Targeted",
+            "slit_id": "SLIT_FHC2_MITTE"
+        },
+        {
+            "CHERAB_Object_Type": "BolometerFoil",
+            "Detector_ID": "FHC2_G_CH28",
+            "Version": 1,
+            "basis_x": [
+                0.09544872002410842,
+                -0.27260705719001016,
+                -0.9573792008477947
+            ],
+            "basis_y": [
+                0.9442949422687881,
+                0.3290999798798661,
+                0.0005150229685131214
+            ],
+            "centre_point": [
+                -0.735649,
+                2.2757,
+                -0.230256
+            ],
+            "dx": 0.00138294,
+            "dy": 0.00388332,
+            "ray_type": "Targeted",
+            "slit_id": "SLIT_FHC2_MITTE"
+        },
+        {
+            "CHERAB_Object_Type": "BolometerFoil",
+            "Detector_ID": "FHC2_H_CH29",
+            "Version": 1,
+            "basis_x": [
+                0.16699099410972676,
+                -0.4778409831451153,
+                -0.8624279695795787
+            ],
+            "basis_y": [
+                0.9442949422687881,
+                0.3290999798798661,
+                0.0005150229685131214
+            ],
+            "centre_point": [
+                -0.734889,
+                2.27353,
+                -0.235548
+            ],
+            "dx": 0.0013833,
+            "dy": 0.00388332,
+            "ray_type": "Targeted",
+            "slit_id": "SLIT_FHC2_MITTE"
+        },
+        {
+            "CHERAB_Object_Type": "BolometerFoil",
+            "Detector_ID": "FHC2_H_CH30",
+            "Version": 1,
+            "basis_x": [
+                0.16779901023523655,
+                -0.47808102916150946,
+                -0.8621380525878364
+            ],
+            "basis_y": [
+                0.9442670448213069,
+                0.3291800156251121,
+                0.000515148024452413
+            ],
+            "centre_point": [
+                -0.73404,
+                2.2711,
+                -0.239929
+            ],
+            "dx": 0.00138261,
+            "dy": 0.00388238,
+            "ray_type": "Targeted",
+            "slit_id": "SLIT_FHC2_MITTE"
+        },
+        {
+            "CHERAB_Object_Type": "BolometerFoil",
+            "Detector_ID": "FHC2_H_CH31",
+            "Version": 1,
+            "basis_x": [
+                0.16703800247308112,
+                -0.47869700708734847,
+                -0.8619440127615121
+            ],
+            "basis_y": [
+                0.9441871673179304,
+                0.32940905837406376,
+                0.0005151050912809671
+            ],
+            "centre_point": [
+                -0.733191,
+                2.26867,
+                -0.244309
+            ],
+            "dx": 0.00138292,
+            "dy": 0.00388271,
+            "ray_type": "Targeted",
+            "slit_id": "SLIT_FHC2_MITTE"
+        },
+        {
+            "CHERAB_Object_Type": "BolometerFoil",
+            "Detector_ID": "FHC2_H_CH32",
+            "Version": 1,
+            "basis_x": [
+                0.16709606323743356,
+                -0.4781391809515682,
+                -0.862242326315239
+            ],
+            "basis_y": [
+                0.9442949422687881,
+                0.3290999798798661,
+                0.0005150229685131214
+            ],
+            "centre_point": [
+                -0.732341,
+                2.26625,
+                -0.248689
+            ],
+            "dx": 0.00138244,
+            "dy": 0.00388332,
+            "ray_type": "Targeted",
+            "slit_id": "SLIT_FHC2_MITTE"
+        },
+        {
+            "CHERAB_Object_Type": "BolometerFoil",
+            "Detector_ID": "FHC2_I_CH33",
+            "Version": 1,
+            "basis_x": [
+                0.23062102958383696,
+                -0.6607760847637009,
+                -0.7142750916265004
+            ],
+            "basis_y": [
+                0.9442949422687881,
+                0.3290999798798661,
+                0.0005150229685131214
+            ],
+            "centre_point": [
+                -0.731181,
+                2.26293,
+                -0.25327
+            ],
+            "dx": 0.00138322,
+            "dy": 0.00388332,
+            "ray_type": "Targeted",
+            "slit_id": "SLIT_FHC2_MITTE"
+        },
+        {
+            "CHERAB_Object_Type": "BolometerFoil",
+            "Detector_ID": "FHC2_I_CH34",
+            "Version": 1,
+            "basis_x": [
+                0.23085098927177763,
+                -0.6607099692951566,
+                -0.7142619668064614
+            ],
+            "basis_y": [
+                0.9442949422687881,
+                0.3290999798798661,
+                0.0005150229685131214
+            ],
+            "centre_point": [
+                -0.730009,
+                2.25957,
+                -0.256898
+            ],
+            "dx": 0.00138185,
+            "dy": 0.00388332,
+            "ray_type": "Targeted",
+            "slit_id": "SLIT_FHC2_MITTE"
+        },
+        {
+            "CHERAB_Object_Type": "BolometerFoil",
+            "Detector_ID": "FHC2_I_CH35",
+            "Version": 1,
+            "basis_x": [
+                0.23062102958383696,
+                -0.6607760847637009,
+                -0.7142750916265004
+            ],
+            "basis_y": [
+                0.9442670448213069,
+                0.3291800156251121,
+                0.000515148024452413
+            ],
+            "centre_point": [
+                -0.728836,
+                2.25621,
+                -0.260527
+            ],
+            "dx": 0.00138322,
+            "dy": 0.00388238,
+            "ray_type": "Targeted",
+            "slit_id": "SLIT_FHC2_MITTE"
+        },
+        {
+            "CHERAB_Object_Type": "BolometerFoil",
+            "Detector_ID": "FHC2_I_CH36",
+            "Version": 1,
+            "basis_x": [
+                0.23085098927177763,
+                -0.6607099692951566,
+                -0.7142619668064614
+            ],
+            "basis_y": [
+                0.9442949422687881,
+                0.3290999798798661,
+                0.0005150229685131214
+            ],
+            "centre_point": [
+                -0.727664,
+                2.25286,
+                -0.264155
+            ],
+            "dx": 0.00138185,
+            "dy": 0.00388332,
+            "ray_type": "Targeted",
+            "slit_id": "SLIT_FHC2_MITTE"
+        },
+        {
+            "CHERAB_Object_Type": "BolometerFoil",
+            "Detector_ID": "FHC3_J_CH37",
+            "Version": 1,
+            "basis_x": [
+                0.29321812203374253,
+                -0.8402903497184127,
+                -0.4559991897812023
+            ],
+            "basis_y": [
+                0.9442784583855831,
+                0.32914715977947123,
+                0.0005832992831537453
+            ],
+            "centre_point": [
+                -0.737173,
+                2.28028,
+                -0.346058
+            ],
+            "dx": 0.00469957,
+            "dy": 0.0120007,
+            "ray_type": "Targeted",
+            "slit_id": "SLIT_FHC3_UNTEN"
+        },
+        {
+            "CHERAB_Object_Type": "BolometerFoil",
+            "Detector_ID": "FHC3_J_CH38",
+            "Version": 1,
+            "basis_x": [
+                0.2746700086128276,
+                -0.7871450246825069,
+                -0.5522310173163083
+            ],
+            "basis_y": [
+                0.9442150841907527,
+                0.32932902936455827,
+                0.0005149800459180947
+            ],
+            "centre_point": [
+                -0.735777,
+                2.27628,
+                -0.348864
+            ],
+            "dx": 0.00138348,
+            "dy": 0.00388365,
+            "ray_type": "Targeted",
+            "slit_id": "SLIT_FHC3_UNTEN"
+        },
+        {
+            "CHERAB_Object_Type": "BolometerFoil",
+            "Detector_ID": "FHC3_J_CH39",
+            "Version": 1,
+            "basis_x": [
+                0.2746700086128276,
+                -0.7871450246825069,
+                -0.5522310173163083
+            ],
+            "basis_y": [
+                0.9442670448213069,
+                0.3291800156251121,
+                0.000515148024452413
+            ],
+            "centre_point": [
+                -0.734382,
+                2.27228,
+                -0.35167
+            ],
+            "dx": 0.00138348,
+            "dy": 0.00388238,
+            "ray_type": "Targeted",
+            "slit_id": "SLIT_FHC3_UNTEN"
+        },
+        {
+            "CHERAB_Object_Type": "BolometerFoil",
+            "Detector_ID": "FHC3_J_CH40",
+            "Version": 1,
+            "basis_x": [
+                0.27482604064663707,
+                -0.7868701163777055,
+                -0.5525450817211475
+            ],
+            "basis_y": [
+                0.9442670448213069,
+                0.3291800156251121,
+                0.000515148024452413
+            ],
+            "centre_point": [
+                -0.732987,
+                2.26828,
+                -0.354476
+            ],
+            "dx": 0.00138269,
+            "dy": 0.00388238,
+            "ray_type": "Targeted",
+            "slit_id": "SLIT_FHC3_UNTEN"
+        },
+        {
+            "CHERAB_Object_Type": "BolometerFoil",
+            "Detector_ID": "FHC3_K_CH41",
+            "Version": 1,
+            "basis_x": [
+                0.29570484033672806,
+                -0.8466265428713179,
+                -0.44247276109065814
+            ],
+            "basis_y": [
+                0.9442668882036064,
+                0.329179961026768,
+                0.0007727229085135405
+            ],
+            "centre_point": [
+                -0.731225,
+                2.26323,
+                -0.357512
+            ],
+            "dx": 0.00138314,
+            "dy": 0.00388238,
+            "ray_type": "Targeted",
+            "slit_id": "SLIT_FHC3_UNTEN"
+        },
+        {
+            "CHERAB_Object_Type": "BolometerFoil",
+            "Detector_ID": "FHC3_K_CH42",
+            "Version": 1,
+            "basis_x": [
+                0.29570484033672806,
+                -0.8466265428713179,
+                -0.44247276109065814
+            ],
+            "basis_y": [
+                0.9441871673179304,
+                0.32940905837406376,
+                0.0005151050912809671
+            ],
+            "centre_point": [
+                -0.729724,
+                2.25893,
+                -0.359759
+            ],
+            "dx": 0.00138314,
+            "dy": 0.00388271,
+            "ray_type": "Targeted",
+            "slit_id": "SLIT_FHC3_UNTEN"
+        },
+        {
+            "CHERAB_Object_Type": "BolometerFoil",
+            "Detector_ID": "FHC3_K_CH43",
+            "Version": 1,
+            "basis_x": [
+                0.29570484033672806,
+                -0.8466265428713179,
+                -0.44247276109065814
+            ],
+            "basis_y": [
+                0.9442668882036064,
+                0.329179961026768,
+                0.0007727229085135405
+            ],
+            "centre_point": [
+                -0.728223,
+                2.25463,
+                -0.362007
+            ],
+            "dx": 0.00138314,
+            "dy": 0.00388238,
+            "ray_type": "Targeted",
+            "slit_id": "SLIT_FHC3_UNTEN"
+        },
+        {
+            "CHERAB_Object_Type": "BolometerFoil",
+            "Detector_ID": "FHC3_K_CH44",
+            "Version": 1,
+            "basis_x": [
+                0.2958858555166049,
+                -0.8464215866856688,
+                -0.44274378380472124
+            ],
+            "basis_y": [
+                0.9442670448213069,
+                0.3291800156251121,
+                0.000515148024452413
+            ],
+            "centre_point": [
+                -0.726722,
+                2.25033,
+                -0.364254
+            ],
+            "dx": 0.00138229,
+            "dy": 0.00388238,
+            "ray_type": "Targeted",
+            "slit_id": "SLIT_FHC3_UNTEN"
+        },
+        {
+            "CHERAB_Object_Type": "BolometerFoil",
+            "Detector_ID": "FHC3_L_CH45",
+            "Version": 1,
+            "basis_x": [
+                0.31157610264564817,
+                -0.8928002941241773,
+                -0.3253121071708382
+            ],
+            "basis_y": [
+                0.9442668882036064,
+                0.329179961026768,
+                0.0007727229085135405
+            ],
+            "centre_point": [
+                -0.724857,
+                2.24498,
+                -0.366649
+            ],
+            "dx": 0.00138329,
+            "dy": 0.00388238,
+            "ray_type": "Targeted",
+            "slit_id": "SLIT_FHC3_UNTEN"
+        },
+        {
+            "CHERAB_Object_Type": "BolometerFoil",
+            "Detector_ID": "FHC3_L_CH46",
+            "Version": 1,
+            "basis_x": [
+                0.3118511327558351,
+                -0.892863380094254,
+                -0.32487513830018805
+            ],
+            "basis_y": [
+                0.9442670448213069,
+                0.3291800156251121,
+                0.000515148024452413
+            ],
+            "centre_point": [
+                -0.723275,
+                2.24045,
+                -0.368302
+            ],
+            "dx": 0.00138207,
+            "dy": 0.00388238,
+            "ray_type": "Targeted",
+            "slit_id": "SLIT_FHC3_UNTEN"
+        },
+        {
+            "CHERAB_Object_Type": "BolometerFoil",
+            "Detector_ID": "FHC3_L_CH47",
+            "Version": 1,
+            "basis_x": [
+                0.31157610264564817,
+                -0.8928002941241773,
+                -0.3253121071708382
+            ],
+            "basis_y": [
+                0.9442949422687881,
+                0.3290999798798661,
+                0.0005150229685131214
+            ],
+            "centre_point": [
+                -0.721693,
+                2.23591,
+                -0.369955
+            ],
+            "dx": 0.00138329,
+            "dy": 0.00388332,
+            "ray_type": "Targeted",
+            "slit_id": "SLIT_FHC3_UNTEN"
+        },
+        {
+            "CHERAB_Object_Type": "BolometerFoil",
+            "Detector_ID": "FHC3_L_CH48",
+            "Version": 1,
+            "basis_x": [
+                0.311123953576265,
+                -0.8928548667744567,
+                -0.3255949514170042
+            ],
+            "basis_y": [
+                0.9442949422687881,
+                0.3290999798798661,
+                0.0005150229685131214
+            ],
+            "centre_point": [
+                -0.720111,
+                2.23138,
+                -0.371608
+            ],
+            "dx": 0.00138208,
+            "dy": 0.00388332,
+            "ray_type": "Targeted",
+            "slit_id": "SLIT_FHC3_UNTEN"
+        }
+    ],
+    "slits": [
+        {
+            "CHERAB_Object_Type": "BolometerSlit",
+            "Slit_ID": "SLIT_FHC1_OBEN",
+            "Version": 1,
+            "basis_x": [
+                -0.225739,
+                0.648706,
+                -0.726789
+            ],
+            "basis_y": [
+                0.944269,
+                0.329173,
+                0.000583345
+            ],
+            "centre_point": [
+                -0.709898,
+                2.19339,
+                -0.17679
+            ],
+            "dx": 0.00470013,
+            "dy": 0.0119998,
+            "dz": 0.001
+        },
+        {
+            "CHERAB_Object_Type": "BolometerSlit",
+            "Slit_ID": "SLIT_FHC2_MITTE",
+            "Version": 1,
+            "basis_x": [
+                0.0562971,
+                -0.159632,
+                -0.98557
+            ],
+            "basis_y": [
+                0.944269,
+                0.329173,
+                0.000583345
+            ],
+            "centre_point": [
+                -0.7116,
+                2.1983,
+                -0.197907
+            ],
+            "dx": 0.00539992,
+            "dy": 0.0119998,
+            "dz": 0.001
+        },
+        {
+            "CHERAB_Object_Type": "BolometerSlit",
+            "Slit_ID": "SLIT_FHC3_UNTEN",
+            "Version": 1,
+            "basis_x": [
+                0.293218,
+                -0.84029,
+                -0.455999
+            ],
+            "basis_y": [
+                0.944278,
+                0.329147,
+                0.000583299
+            ],
+            "centre_point": [
+                -0.707602,
+                2.18687,
+                -0.216291
+            ],
+            "dx": 0.00469957,
+            "dy": 0.0120007,
+            "dz": 0.001
+        }
+    ]
+}
