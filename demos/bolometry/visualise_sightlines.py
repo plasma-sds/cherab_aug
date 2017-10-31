@@ -3,8 +3,8 @@ import numpy as np
 import matplotlib.pyplot as plt
 plt.ion()
 from raysect.core import World
-from raysect.core.ray import Ray as CoreRay
 
+from cherab.tools.observers import find_wall_intersection
 from cherab.aug.machine import plot_aug_wall_outline, import_mesh_segment, VESSEL, PSL, ICRH, DIVERTOR, A_B_COILS
 from cherab.aug.bolometry import FDC_TUBE, FLX_TUBE, FVC_TUBE, FHS_TUBE, load_default_bolometer_config
 
@@ -19,13 +19,7 @@ def plot_detectors(camera, world):
         centre_point = detector.centre_point
         sightline_vec = centre_point.vector_to(detector._slit.centre_point)
 
-        # TODO - move this into bolometry utility function
-        # Find the next intersection point of the ray with the world
-        intersection = world.hit(CoreRay(centre_point, sightline_vec))
-        if intersection is not None:
-            hit_point = intersection.hit_point.transform(intersection.primitive_to_world)
-        else:
-            hit_point = centre_point + sightline_vec * 2.0
+        hit_point = find_wall_intersection(world, centre_point, sightline_vec)
 
         # Traverse the ray with equation for a parametric line,
         # i.e. t=0->1 traverses the ray path.
