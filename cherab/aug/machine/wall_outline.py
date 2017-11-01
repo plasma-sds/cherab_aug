@@ -5,6 +5,8 @@ import matplotlib.pyplot as plt
 
 from raysect.core import Point2D
 
+from cherab.core.math.mask import PolygonMask2D
+
 
 AUG_WALL_OUTLINE = np.array([
     [1.670482, -0.9978656, 1.6668, -0.9992],
@@ -308,3 +310,13 @@ def plot_wall_segment(list_element):
     plt.plot([list_element[0], list_element[2]], [list_element[1], list_element[3]], 'r')
 
 
+def get_aug_wall_mask():
+
+    n = len(AUG_WALL_POLYGON_BOUNDARY)
+    wall_points = np.zeros((n, 2))
+
+    for i in range(n):
+        wall_points[i, 0] = AUG_WALL_POLYGON_BOUNDARY[i].x
+        wall_points[i, 1] = AUG_WALL_POLYGON_BOUNDARY[i].y
+
+    return PolygonMask2D(wall_points)
