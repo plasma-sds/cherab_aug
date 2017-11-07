@@ -1,6 +1,8 @@
 {
     "CHERAB_Object_Type": "RectangularGrid",
     "Count": 2206,
+    "Grid_ID": "AUG_Standard_Bolometer_Inversion_Grid",
+    "Grid_Description": "Standard rectangular inversion grid used by bolometry at AUG.",
     "Version": 1,
     "cells": [
         {

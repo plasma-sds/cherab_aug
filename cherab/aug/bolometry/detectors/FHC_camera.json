@@ -24,7 +24,6 @@
             ],
             "dx": 0.00470013,
             "dy": 0.0119998,
-            "ray_type": "Targeted",
             "slit_id": "SLIT_FHC1_OBEN"
         },
         {
@@ -48,7 +47,6 @@
             ],
             "dx": 0.00138213,
             "dy": 0.00388332,
-            "ray_type": "Targeted",
             "slit_id": "SLIT_FHC1_OBEN"
         },
         {
@@ -72,7 +70,6 @@
             ],
             "dx": 0.0013825,
             "dy": 0.00388332,
-            "ray_type": "Targeted",
             "slit_id": "SLIT_FHC1_OBEN"
         },
         {
@@ -96,7 +93,6 @@
             ],
             "dx": 0.0013825,
             "dy": 0.00388271,
-            "ray_type": "Targeted",
             "slit_id": "SLIT_FHC1_OBEN"
         },
         {
@@ -120,7 +116,6 @@
             ],
             "dx": 0.00138278,
             "dy": 0.00388238,
-            "ray_type": "Targeted",
             "slit_id": "SLIT_FHC1_OBEN"
         },
         {
@@ -144,7 +139,6 @@
             ],
             "dx": 0.00138212,
             "dy": 0.00388238,
-            "ray_type": "Targeted",
             "slit_id": "SLIT_FHC1_OBEN"
         },
         {
@@ -168,7 +162,6 @@
             ],
             "dx": 0.00138278,
             "dy": 0.00388332,
-            "ray_type": "Targeted",
             "slit_id": "SLIT_FHC1_OBEN"
         },
         {
@@ -192,7 +185,6 @@
             ],
             "dx": 0.00138301,
             "dy": 0.00388332,
-            "ray_type": "Targeted",
             "slit_id": "SLIT_FHC1_OBEN"
         },
         {
@@ -216,7 +208,6 @@
             ],
             "dx": 0.00138289,
             "dy": 0.00388332,
-            "ray_type": "Targeted",
             "slit_id": "SLIT_FHC1_OBEN"
         },
         {
@@ -240,7 +231,6 @@
             ],
             "dx": 0.00138345,
             "dy": 0.00388238,
-            "ray_type": "Targeted",
             "slit_id": "SLIT_FHC1_OBEN"
         },
         {
@@ -264,7 +254,6 @@
             ],
             "dx": 0.00138345,
             "dy": 0.00388238,
-            "ray_type": "Targeted",
             "slit_id": "SLIT_FHC1_OBEN"
         },
         {
@@ -288,7 +277,6 @@
             ],
             "dx": 0.00138345,
             "dy": 0.00388332,
-            "ray_type": "Targeted",
             "slit_id": "SLIT_FHC1_OBEN"
         },
         {
@@ -312,7 +300,6 @@
             ],
             "dx": 0.00539992,
             "dy": 0.0119998,
-            "ray_type": "Targeted",
             "slit_id": "SLIT_FHC2_MITTE"
         },
         {
@@ -336,7 +323,6 @@
             ],
             "dx": 0.00138345,
             "dy": 0.00388238,
-            "ray_type": "Targeted",
             "slit_id": "SLIT_FHC2_MITTE"
         },
         {
@@ -360,7 +346,6 @@
             ],
             "dx": 0.00138215,
             "dy": 0.00388238,
-            "ray_type": "Targeted",
             "slit_id": "SLIT_FHC2_MITTE"
         },
         {
@@ -384,7 +369,6 @@
             ],
             "dx": 0.00138254,
             "dy": 0.00388238,
-            "ray_type": "Targeted",
             "slit_id": "SLIT_FHC2_MITTE"
         },
         {
@@ -408,7 +392,6 @@
             ],
             "dx": 0.00138236,
             "dy": 0.00388332,
-            "ray_type": "Targeted",
             "slit_id": "SLIT_FHC2_MITTE"
         },
         {
@@ -432,7 +415,6 @@
             ],
             "dx": 0.0013823,
             "dy": 0.00388271,
-            "ray_type": "Targeted",
             "slit_id": "SLIT_FHC2_MITTE"
         },
         {
@@ -456,7 +438,6 @@
             ],
             "dx": 0.00138346,
             "dy": 0.00388238,
-            "ray_type": "Targeted",
             "slit_id": "SLIT_FHC2_MITTE"
         },
         {
@@ -480,7 +461,6 @@
             ],
             "dx": 0.0013823,
             "dy": 0.00388238,
-            "ray_type": "Targeted",
             "slit_id": "SLIT_FHC2_MITTE"
         },
         {
@@ -504,7 +484,6 @@
             ],
             "dx": 0.00138272,
             "dy": 0.00388332,
-            "ray_type": "Targeted",
             "slit_id": "SLIT_FHC2_MITTE"
         },
         {
@@ -528,7 +507,6 @@
             ],
             "dx": 0.00138274,
             "dy": 0.00388238,
-            "ray_type": "Targeted",
             "slit_id": "SLIT_FHC2_MITTE"
         },
         {
@@ -552,7 +530,6 @@
             ],
             "dx": 0.00138274,
             "dy": 0.00388238,
-            "ray_type": "Targeted",
             "slit_id": "SLIT_FHC2_MITTE"
         },
         {
@@ -576,7 +553,6 @@
             ],
             "dx": 0.00138272,
             "dy": 0.00388332,
-            "ray_type": "Targeted",
             "slit_id": "SLIT_FHC2_MITTE"
         },
         {
@@ -600,7 +576,6 @@
             ],
             "dx": 0.00138277,
             "dy": 0.00388238,
-            "ray_type": "Targeted",
             "slit_id": "SLIT_FHC2_MITTE"
         },
         {
@@ -624,7 +599,6 @@
             ],
             "dx": 0.00138294,
             "dy": 0.00388332,
-            "ray_type": "Targeted",
             "slit_id": "SLIT_FHC2_MITTE"
         },
         {
@@ -648,7 +622,6 @@
             ],
             "dx": 0.00138294,
             "dy": 0.00388271,
-            "ray_type": "Targeted",
             "slit_id": "SLIT_FHC2_MITTE"
         },
         {
@@ -672,7 +645,6 @@
             ],
             "dx": 0.00138294,
             "dy": 0.00388332,
-            "ray_type": "Targeted",
             "slit_id": "SLIT_FHC2_MITTE"
         },
         {
@@ -696,7 +668,6 @@
             ],
             "dx": 0.0013833,
             "dy": 0.00388332,
-            "ray_type": "Targeted",
             "slit_id": "SLIT_FHC2_MITTE"
         },
         {
@@ -720,7 +691,6 @@
             ],
             "dx": 0.00138261,
             "dy": 0.00388238,
-            "ray_type": "Targeted",
             "slit_id": "SLIT_FHC2_MITTE"
         },
         {
@@ -744,7 +714,6 @@
             ],
             "dx": 0.00138292,
             "dy": 0.00388271,
-            "ray_type": "Targeted",
             "slit_id": "SLIT_FHC2_MITTE"
         },
         {
@@ -768,7 +737,6 @@
             ],
             "dx": 0.00138244,
             "dy": 0.00388332,
-            "ray_type": "Targeted",
             "slit_id": "SLIT_FHC2_MITTE"
         },
         {
@@ -792,7 +760,6 @@
             ],
             "dx": 0.00138322,
             "dy": 0.00388332,
-            "ray_type": "Targeted",
             "slit_id": "SLIT_FHC2_MITTE"
         },
         {
@@ -816,7 +783,6 @@
             ],
             "dx": 0.00138185,
             "dy": 0.00388332,
-            "ray_type": "Targeted",
             "slit_id": "SLIT_FHC2_MITTE"
         },
         {
@@ -840,7 +806,6 @@
             ],
             "dx": 0.00138322,
             "dy": 0.00388238,
-            "ray_type": "Targeted",
             "slit_id": "SLIT_FHC2_MITTE"
         },
         {
@@ -864,7 +829,6 @@
             ],
             "dx": 0.00138185,
             "dy": 0.00388332,
-            "ray_type": "Targeted",
             "slit_id": "SLIT_FHC2_MITTE"
         },
         {
@@ -888,7 +852,6 @@
             ],
             "dx": 0.00469957,
             "dy": 0.0120007,
-            "ray_type": "Targeted",
             "slit_id": "SLIT_FHC3_UNTEN"
         },
         {
@@ -912,7 +875,6 @@
             ],
             "dx": 0.00138348,
             "dy": 0.00388365,
-            "ray_type": "Targeted",
             "slit_id": "SLIT_FHC3_UNTEN"
         },
         {
@@ -936,7 +898,6 @@
             ],
             "dx": 0.00138348,
             "dy": 0.00388238,
-            "ray_type": "Targeted",
             "slit_id": "SLIT_FHC3_UNTEN"
         },
         {
@@ -960,7 +921,6 @@
             ],
             "dx": 0.00138269,
             "dy": 0.00388238,
-            "ray_type": "Targeted",
             "slit_id": "SLIT_FHC3_UNTEN"
         },
         {
@@ -984,7 +944,6 @@
             ],
             "dx": 0.00138314,
             "dy": 0.00388238,
-            "ray_type": "Targeted",
             "slit_id": "SLIT_FHC3_UNTEN"
         },
         {
@@ -1008,7 +967,6 @@
             ],
             "dx": 0.00138314,
             "dy": 0.00388271,
-            "ray_type": "Targeted",
             "slit_id": "SLIT_FHC3_UNTEN"
         },
         {
@@ -1032,7 +990,6 @@
             ],
             "dx": 0.00138314,
             "dy": 0.00388238,
-            "ray_type": "Targeted",
             "slit_id": "SLIT_FHC3_UNTEN"
         },
         {
@@ -1056,7 +1013,6 @@
             ],
             "dx": 0.00138229,
             "dy": 0.00388238,
-            "ray_type": "Targeted",
             "slit_id": "SLIT_FHC3_UNTEN"
         },
         {
@@ -1080,7 +1036,6 @@
             ],
             "dx": 0.00138329,
             "dy": 0.00388238,
-            "ray_type": "Targeted",
             "slit_id": "SLIT_FHC3_UNTEN"
         },
         {
@@ -1104,7 +1059,6 @@
             ],
             "dx": 0.00138207,
             "dy": 0.00388238,
-            "ray_type": "Targeted",
             "slit_id": "SLIT_FHC3_UNTEN"
         },
         {
@@ -1128,7 +1082,6 @@
             ],
             "dx": 0.00138329,
             "dy": 0.00388332,
-            "ray_type": "Targeted",
             "slit_id": "SLIT_FHC3_UNTEN"
         },
         {
@@ -1152,7 +1105,6 @@
             ],
             "dx": 0.00138208,
             "dy": 0.00388332,
-            "ray_type": "Targeted",
             "slit_id": "SLIT_FHC3_UNTEN"
         }
     ],
