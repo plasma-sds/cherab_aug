@@ -53,6 +53,7 @@ ax.add_collection(p)
 plt.xlim(1, 2.5)
 plt.ylim(-1.5, 1.5)
 plt.title("Line of sight sensitivity")
+plt.axis('equal')
 
 plt.ion()
 plt.show()

@@ -653,6 +653,7 @@
             "CHERAB_Object_Type": "BolometerSlit",
             "Slit_ID": "SLIT_FDC_A_CH1",
             "Version": 1,
+            "csg_aperture": true,
             "basis_x": [
                 0.231678,
                 -0.486758,
@@ -676,6 +677,7 @@
             "CHERAB_Object_Type": "BolometerSlit",
             "Slit_ID": "SLIT_FDC_A_CH2",
             "Version": 1,
+            "csg_aperture": true,
             "basis_x": [
                 0.231921,
                 -0.486822,
@@ -699,6 +701,7 @@
             "CHERAB_Object_Type": "BolometerSlit",
             "Slit_ID": "SLIT_FDC_A_CH3",
             "Version": 1,
+            "csg_aperture": true,
             "basis_x": [
                 0.23172,
                 -0.486846,
@@ -722,6 +725,7 @@
             "CHERAB_Object_Type": "BolometerSlit",
             "Slit_ID": "SLIT_FDC_A_CH4",
             "Version": 1,
+            "csg_aperture": true,
             "basis_x": [
                 0.231678,
                 -0.486758,
@@ -745,6 +749,7 @@
             "CHERAB_Object_Type": "BolometerSlit",
             "Slit_ID": "SLIT_FDC_B_CH5",
             "Version": 1,
+            "csg_aperture": true,
             "basis_x": [
                 0.308112,
                 -0.683889,
@@ -768,6 +773,7 @@
             "CHERAB_Object_Type": "BolometerSlit",
             "Slit_ID": "SLIT_FDC_B_CH6",
             "Version": 1,
+            "csg_aperture": true,
             "basis_x": [
                 0.308471,
                 -0.683983,
@@ -791,6 +797,7 @@
             "CHERAB_Object_Type": "BolometerSlit",
             "Slit_ID": "SLIT_FDC_B_CH7",
             "Version": 1,
+            "csg_aperture": true,
             "basis_x": [
                 0.30811,
                 -0.684099,
@@ -814,6 +821,7 @@
             "CHERAB_Object_Type": "BolometerSlit",
             "Slit_ID": "SLIT_FDC_B_CH8",
             "Version": 1,
+            "csg_aperture": true,
             "basis_x": [
                 0.308348,
                 -0.683941,
@@ -837,6 +845,7 @@
             "CHERAB_Object_Type": "BolometerSlit",
             "Slit_ID": "SLIT_FDC_C_CH10",
             "Version": 1,
+            "csg_aperture": true,
             "basis_x": [
                 0.363193,
                 -0.83508,
@@ -860,6 +869,7 @@
             "CHERAB_Object_Type": "BolometerSlit",
             "Slit_ID": "SLIT_FDC_C_CH11",
             "Version": 1,
+            "csg_aperture": true,
             "basis_x": [
                 0.363073,
                 -0.835069,
@@ -883,6 +893,7 @@
             "CHERAB_Object_Type": "BolometerSlit",
             "Slit_ID": "SLIT_FDC_C_CH12",
             "Version": 1,
+            "csg_aperture": true,
             "basis_x": [
                 0.363113,
                 -0.83516,
@@ -906,6 +917,7 @@
             "CHERAB_Object_Type": "BolometerSlit",
             "Slit_ID": "SLIT_FDC_C_CH9",
             "Version": 1,
+            "csg_aperture": true,
             "basis_x": [
                 0.363193,
                 -0.83508,
@@ -929,6 +941,7 @@
             "CHERAB_Object_Type": "BolometerSlit",
             "Slit_ID": "SLIT_FDC_D_CH13",
             "Version": 1,
+            "csg_aperture": true,
             "basis_x": [
                 0.382136,
                 -0.894546,
@@ -952,6 +965,7 @@
             "CHERAB_Object_Type": "BolometerSlit",
             "Slit_ID": "SLIT_FDC_D_CH14",
             "Version": 1,
+            "csg_aperture": true,
             "basis_x": [
                 0.381888,
                 -0.894581,
@@ -975,6 +989,7 @@
             "CHERAB_Object_Type": "BolometerSlit",
             "Slit_ID": "SLIT_FDC_D_CH15",
             "Version": 1,
+            "csg_aperture": true,
             "basis_x": [
                 0.381821,
                 -0.894688,
@@ -998,6 +1013,7 @@
             "CHERAB_Object_Type": "BolometerSlit",
             "Slit_ID": "SLIT_FDC_D_CH16",
             "Version": 1,
+            "csg_aperture": true,
             "basis_x": [
                 0.381821,
                 -0.894688,
@@ -1021,6 +1037,7 @@
             "CHERAB_Object_Type": "BolometerSlit",
             "Slit_ID": "SLIT_FDC_E_CH17",
             "Version": 1,
+            "csg_aperture": true,
             "basis_x": [
                 0.386369,
                 -0.913284,
@@ -1044,6 +1061,7 @@
             "CHERAB_Object_Type": "BolometerSlit",
             "Slit_ID": "SLIT_FDC_E_CH18",
             "Version": 1,
+            "csg_aperture": true,
             "basis_x": [
                 0.386276,
                 -0.913327,
@@ -1067,6 +1085,7 @@
             "CHERAB_Object_Type": "BolometerSlit",
             "Slit_ID": "SLIT_FDC_E_CH19",
             "Version": 1,
+            "csg_aperture": true,
             "basis_x": [
                 0.386263,
                 -0.913296,
@@ -1090,6 +1109,7 @@
             "CHERAB_Object_Type": "BolometerSlit",
             "Slit_ID": "SLIT_FDC_E_CH20",
             "Version": 1,
+            "csg_aperture": true,
             "basis_x": [
                 0.386356,
                 -0.913253,
@@ -1113,6 +1133,7 @@
             "CHERAB_Object_Type": "BolometerSlit",
             "Slit_ID": "SLIT_FDC_F_CH21",
             "Version": 1,
+            "csg_aperture": true,
             "basis_x": [
                 0.374218,
                 -0.908966,
@@ -1136,6 +1157,7 @@
             "CHERAB_Object_Type": "BolometerSlit",
             "Slit_ID": "SLIT_FDC_F_CH22",
             "Version": 1,
+            "csg_aperture": true,
             "basis_x": [
                 0.374236,
                 -0.90901,
@@ -1159,6 +1181,7 @@
             "CHERAB_Object_Type": "BolometerSlit",
             "Slit_ID": "SLIT_FDC_F_CH23",
             "Version": 1,
+            "csg_aperture": true,
             "basis_x": [
                 0.37401,
                 -0.9091,
@@ -1182,6 +1205,7 @@
             "CHERAB_Object_Type": "BolometerSlit",
             "Slit_ID": "SLIT_FDC_F_CH24",
             "Version": 1,
+            "csg_aperture": true,
             "basis_x": [
                 0.37401,
                 -0.9091,
@@ -1205,6 +1229,7 @@
             "CHERAB_Object_Type": "BolometerSlit",
             "Slit_ID": "SLIT_FDC_G_CH25",
             "Version": 1,
+            "csg_aperture": true,
             "basis_x": [
                 0.301454,
                 -0.766293,
@@ -1228,6 +1253,7 @@
             "CHERAB_Object_Type": "BolometerSlit",
             "Slit_ID": "SLIT_FDC_G_CH26",
             "Version": 1,
+            "csg_aperture": true,
             "basis_x": [
                 0.30149,
                 -0.766386,
@@ -1251,6 +1277,7 @@
             "CHERAB_Object_Type": "BolometerSlit",
             "Slit_ID": "SLIT_FDC_G_CH27",
             "Version": 1,
+            "csg_aperture": true,
             "basis_x": [
                 0.30154,
                 -0.766298,
@@ -1274,6 +1301,7 @@
             "CHERAB_Object_Type": "BolometerSlit",
             "Slit_ID": "SLIT_FDC_G_CH28",
             "Version": 1,
+            "csg_aperture": true,
             "basis_x": [
                 0.301503,
                 -0.766205,

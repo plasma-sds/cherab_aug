@@ -745,6 +745,7 @@
             "CHERAB_Object_Type": "BolometerSlit",
             "Slit_ID": "SLIT_FVC1_OBEN",
             "Version": 1,
+            "csg_aperture": true,
             "basis_x": [
                 -0.209314,
                 0.962246,
@@ -768,6 +769,7 @@
             "CHERAB_Object_Type": "BolometerSlit",
             "Slit_ID": "SLIT_FVC2_UNTEN",
             "Version": 1,
+            "csg_aperture": true,
             "basis_x": [
                 -0.0389978,
                 0.201989,

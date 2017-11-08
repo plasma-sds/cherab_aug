@@ -193,6 +193,7 @@
             "CHERAB_Object_Type": "BolometerSlit",
             "Slit_ID": "SLIT_FHS",
             "Version": 1,
+            "csg_aperture": true,
             "basis_x": [
                 -0.000333301,
                 0.96624,

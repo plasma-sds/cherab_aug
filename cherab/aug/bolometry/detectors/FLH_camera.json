@@ -101,6 +101,7 @@
             "CHERAB_Object_Type": "BolometerSlit",
             "Slit_ID": "SLIT_FLH",
             "Version": 1,
+            "csg_aperture": true,
             "basis_x": [
                 0.983134,
                 0.17972,
