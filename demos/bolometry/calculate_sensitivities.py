@@ -46,16 +46,6 @@ for detector in fvc:
     detector.save_sensitivities(dir_path=os.path.split(cherab.aug.bolometry.detectors.__file__)[0])
 
 
-# Calculate FVC camera sensitivities
-fvc_world = World()
-import_mesh_segment(fvc_world, FVC_TUBE)
-fvc = load_default_bolometer_config('FVC', parent=fvc_world)
-for detector in fvc:
-    print('calculating detector {}'.format(detector.detector_id))
-    detector.calculate_sensitivity(grid)
-    detector.save_sensitivities(dir_path=os.path.split(cherab.aug.bolometry.detectors.__file__)[0])
-
-
 # Calculate FHS camera sensitivities
 fhs_world = World()
 import_mesh_segment(fhs_world, FHS_TUBE)
