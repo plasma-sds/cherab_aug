@@ -5,7 +5,6 @@ import matplotlib.pyplot as plt
 from raysect.optical import World
 
 from cherab.aug.machine import plot_aug_wall_outline, import_mesh_segment, VESSEL, PSL, ICRH, DIVERTOR, A_B_COILS
-import cherab.aug.bolometry
 from cherab.aug.bolometry import FDC_TUBE, FLX_TUBE, FVC_TUBE, FHS_TUBE, load_default_bolometer_config
 from cherab.aug.bolometry import load_standard_inversion_grid
 
@@ -23,7 +22,7 @@ flx = load_default_bolometer_config('FLX', parent=flx_world)
 for detector in flx:
     print('calculating detector {}'.format(detector.detector_id))
     detector.calculate_sensitivity(grid)
-    detector.save_sensitivities(dir_path=os.path.split(cherab.aug.bolometry.detectors.__file__)[0])
+flx.save("FLX_camera.pickle")
 
 
 # Calculate FDC camera sensitivities
@@ -33,7 +32,7 @@ fdc = load_default_bolometer_config('FDC', parent=fdc_world)
 for detector in fdc:
     print('calculating detector {}'.format(detector.detector_id))
     detector.calculate_sensitivity(grid)
-    detector.save_sensitivities(dir_path=os.path.split(cherab.aug.bolometry.detectors.__file__)[0])
+fdc.save("FDC_camera.pickle")
 
 
 # Calculate FVC camera sensitivities
@@ -43,7 +42,7 @@ fvc = load_default_bolometer_config('FVC', parent=fvc_world)
 for detector in fvc:
     print('calculating detector {}'.format(detector.detector_id))
     detector.calculate_sensitivity(grid)
-    detector.save_sensitivities(dir_path=os.path.split(cherab.aug.bolometry.detectors.__file__)[0])
+fvc.save("FVC_camera.pickle")
 
 
 # Calculate FHS camera sensitivities
@@ -53,7 +52,7 @@ fhs = load_default_bolometer_config('FHS', parent=fhs_world)
 for detector in fhs:
     print('calculating detector {}'.format(detector.detector_id))
     detector.calculate_sensitivity(grid)
-    detector.save_sensitivities(dir_path=os.path.split(cherab.aug.bolometry.detectors.__file__)[0])
+fhs.save("FHS_camera.pickle")
 
 
 # FHC and FLH use the full AUG mesh structure
@@ -66,13 +65,13 @@ fhc = load_default_bolometer_config('FHC', parent=full_world)
 for detector in fhc:
     print('calculating detector {}'.format(detector.detector_id))
     detector.calculate_sensitivity(grid)
-    detector.save_sensitivities(dir_path=os.path.split(cherab.aug.bolometry.detectors.__file__)[0])
+fhc.save("FHC_camera.pickle")
 
 # Calculate FLH camera sensitivities
 flh = load_default_bolometer_config('FLH', parent=full_world)
 for detector in flh:
     print('calculating detector {}'.format(detector.detector_id))
     detector.calculate_sensitivity(grid)
-    detector.save_sensitivities(dir_path=os.path.split(cherab.aug.bolometry.detectors.__file__)[0])
+flh.save("FLH_camera.pickle")
 
 print("run time - {:.2G}mins".format((time.time() - start_time) / 60))
