@@ -4,15 +4,15 @@ import os
 from cherab.tools.observers.bolometry import load_bolometer_camera
 
 
-_JSON_DATA_PATH = os.path.split(__file__)[0]
+_DATA_PATH = os.path.split(__file__)[0]
 
 _CAMERA_MAP = {
-    'FDC': 'FDC_camera.json',
-    'FHC': 'FHC_camera.json',
-    'FHS': 'FHS_camera.json',
-    'FLH': 'FLH_camera.json',
-    'FLX': 'FLX_camera.json',
-    'FVC': 'FVC_camera.json',
+    'FDC': 'FDC_camera.pickle',
+    'FHC': 'FHC_camera.pickle',
+    'FHS': 'FHS_camera.pickle',
+    'FLH': 'FLH_camera.pickle',
+    'FLX': 'FLX_camera.pickle',
+    'FVC': 'FVC_camera.pickle',
 }
 
 
@@ -24,4 +24,4 @@ def load_default_bolometer_config(bolometer_id, parent=None):
     except KeyError:
         raise ValueError("Bolometer camera ID '{}' not recognised.".format(bolometer_id))
 
-    return load_bolometer_camera(os.path.join(_JSON_DATA_PATH, config_filename), parent=parent)
+    return load_bolometer_camera(os.path.join(_DATA_PATH, config_filename), parent=parent)
