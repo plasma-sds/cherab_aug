@@ -15,7 +15,7 @@ fvc = load_default_bolometer_config('FVC', parent=fvc_world)
 
 fvc_ch10 = fvc['FVC1_C_CH10']
 detector = fvc_ch10
-aperture, box = detector.calculate_etendue()
+detector.calculate_etendue()
 
 mb_area_foil = 4.940000E-06  # f_foil
 mb_area_pinhole = 1.811040E-05  # f_blende
