@@ -3,7 +3,7 @@ import numpy as np
 import scipy
 import matplotlib.pyplot as plt
 
-from cherab.tools.inversions import invert_sart
+from cherab.tools.inversions import invert_sart, invert_constrained_sart
 from cherab.tools.observers.inversion_grid import EmissivityGrid
 from cherab.tools.observers.bolometry import assemble_weight_matrix
 from cherab.aug.bolometry import load_emissivity_phantom, load_standard_inversion_grid, load_default_bolometer_config
@@ -18,6 +18,10 @@ emiss = emiss77.emissivities
 
 grid = load_standard_inversion_grid()
 
+laplace_fh = open("/home/matt/CCFE/cherab/aug/cherab/aug/bolometry/grid_construction/grid_laplacian.ndarray", "rb")
+GRID_LAPLACIAN = np.load(laplace_fh)
+laplace_fh.close()
+
 fhc = load_default_bolometer_config('FHC', inversion_grid=grid)
 flh = load_default_bolometer_config('FLH', inversion_grid=grid)
 fhs = load_default_bolometer_config('FHS', inversion_grid=grid)
@@ -28,40 +32,50 @@ flx = load_default_bolometer_config('FLX', inversion_grid=grid)
 
 detector_keys, los_weight_matrix, vol_weight_matrix = assemble_weight_matrix([fhc, flh, fhs, fvc, fdc, flx], excluded_detectors=EXCLUDED_CHANNELS)
 
-print("vol_weight_matrix shape", vol_weight_matrix.shape)
-fhc13_real = fhc[detector_keys[9]]._volume_power_sensitivity.sensitivity
-test_fhc13 = vol_weight_matrix[9, :]
+cell_ray_densities = np.sum(los_weight_matrix, axis=0)
+num_empty_cells = 0
+for cell in cell_ray_densities:
+    if cell == 0.0:
+        num_empty_cells += 1
 
-fhc13_obs_power = 0
-for i in range(len(test_fhc13)):
-    if fhc13_real[i] != test_fhc13[i]:
-        print('Warning {} != {}'.format(fhc13_real[i], test_fhc13[i]))
+print(los_weight_matrix.shape)
+print("num_empty_cells", num_empty_cells, "empty cell fraction", num_empty_cells / len(cell_ray_densities))
 
-    fhc13_obs_power += fhc13_real[i] * emiss[i]
-
-
+# Note - only the volume observed power is valid, since that is what is actually measured.
 obs_power = np.dot(vol_weight_matrix, emiss77.emissivities)
-
-print("fhc13_obs_power", fhc13_obs_power)
-print("obs_power", obs_power[9])
-
-inverted_emiss_vector, conv = invert_sart(vol_weight_matrix, obs_power, max_iterations=1000, lam_start=2500)  # lam_start=2500)
-inverted_emiss = EmissivityGrid(grid, case_id='Phantom 77 - LOS method', emissivities=np.squeeze(np.asarray(inverted_emiss_vector)))
-
-fhc13_inverted_power = 0
-for i in range(len(test_fhc13)):
-    fhc13_inverted_power += fhc13_real[i] * np.squeeze(np.asarray(inverted_emiss_vector))[i]
-print("fhc13_inverted_power", fhc13_inverted_power)
 
 
 plt.ion()
 emiss77.plot()
 plt.axis('equal')
+print('Phantom total power - {:.4G}MW'.format(emiss77.total_radiated_power()/1E6))
 
+
+inverted_emiss_vector, conv = invert_sart(los_weight_matrix, obs_power, max_iterations=100)
+inverted_emiss = EmissivityGrid(grid, case_id='Phantom 77 - LOS SART method', emissivities=inverted_emiss_vector)
 inverted_emiss.plot()
 plt.axis('equal')
+print('SART LOS Inversion total power - {:.4G}MW'.format(inverted_emiss.total_radiated_power()/1E6))
+print('Total iterations', len(conv), 'convergence', conv[-1])
+
+inverted_emiss_vector, conv = invert_constrained_sart(los_weight_matrix, GRID_LAPLACIAN, obs_power, max_iterations=300, beta_laplace=10)
+inverted_emiss = EmissivityGrid(grid, case_id='Phantom 77 - LOS Constrained C-SART method', emissivities=np.squeeze(np.asarray(inverted_emiss_vector)))
+inverted_emiss.plot()
+plt.axis('equal')
+print('Constrained C-SART LOS Inversion total power - {:.4G}MW'.format(inverted_emiss.total_radiated_power()/1E6))
+print('Total iterations', len(conv), 'convergence', conv[-1])
 
 
-print('Phantom total power', emiss77.total_radiated_power())
-print('Inversion total power', inverted_emiss.total_radiated_power())
-# print('convergence', conv)
+inverted_emiss_vector, conv = invert_sart(vol_weight_matrix, obs_power, max_iterations=100)
+inverted_emiss = EmissivityGrid(grid, case_id='Phantom 77 - VOL SART method', emissivities=inverted_emiss_vector)
+inverted_emiss.plot()
+plt.axis('equal')
+print('SART Volume Inversion total power - {:.4G}MW'.format(inverted_emiss.total_radiated_power()/1E6))
+print('Total iterations', len(conv), 'convergence', conv[-1])
+
+inverted_emiss_vector, conv = invert_constrained_sart(vol_weight_matrix, GRID_LAPLACIAN, obs_power, max_iterations=300, beta_laplace=10)
+inverted_emiss = EmissivityGrid(grid, case_id='Phantom 77 - VOL Constrained C-SART method', emissivities=np.squeeze(np.asarray(inverted_emiss_vector)))
+inverted_emiss.plot()
+plt.axis('equal')
+print('Constrained C-SART Volume Inversion total power - {:.4G}MW'.format(inverted_emiss.total_radiated_power()/1E6))
+print('Total iterations', len(conv), 'convergence', conv[-1])

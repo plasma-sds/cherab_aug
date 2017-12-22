@@ -9,8 +9,8 @@ from cherab.tools.observers.bolometry import assemble_weight_matrix
 from cherab.aug.bolometry import load_emissivity_phantom, load_standard_inversion_grid, load_default_bolometer_config
 
 
-EXCLUDED_CHANNELS = ['FVC1_A_CH1', 'FVC2_E_CH17', 'FLX_A_CH1', 'FDC_A_CH1', 'FDC_G_CH28', 'FHS_A_CH1',
-                     'FHC1_A_CH1', 'FHC1_A_CH2', 'FHC1_A_CH3']
+# 'FVC1_A_CH1', 'FVC2_E_CH17', 'FLX_A_CH1', 'FHS_A_CH1'
+EXCLUDED_CHANNELS = ['FDC_A_CH1', 'FDC_G_CH28', 'FHC1_A_CH1', 'FHC1_A_CH2', 'FHC1_A_CH3']
 
 
 emiss77 = load_emissivity_phantom('AUG_emission_phantom_077')
