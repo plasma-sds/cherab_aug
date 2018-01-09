@@ -27,7 +27,7 @@ active_cameras = load_blb_config_file(os.path.join(AUG_BLB_CASE_DIRECTORY, "conf
 
 result_blb33280_raw = load_blb_result_file(os.path.join(AUG_BLB_CASE_DIRECTORY, "resultef2d.BLB.33280_4.100000"), grid)
 
-result_blb33280 = EmissivityGrid(grid, result_blb33280_raw.case_id, result_blb33280_raw.description, emissivities=np.clip(result_blb33280_raw.sensitivity, 0, None))
+result_blb33280 = EmissivityGrid(grid, result_blb33280_raw.case_id, result_blb33280_raw.description, emissivities=np.clip(result_blb33280_raw.emissivities, 0, None))
 
 
 def process_detector_error(detector, emission_profile):
@@ -40,8 +40,8 @@ def process_detector_error(detector, emission_profile):
     l_vol = vol_sensitivity.sum()
     los_to_vol_factor = l_vol / l_los
 
-    p_los_observed = np.dot(emission_profile.sensitivity, los_sensitivity) * los_to_vol_factor * vol_etendue
-    p_vol_observed = np.dot(emission_profile.sensitivity, vol_sensitivity) * vol_etendue
+    p_los_observed = np.dot(emission_profile.emissivities, los_sensitivity) * los_to_vol_factor * vol_etendue
+    p_vol_observed = np.dot(emission_profile.emissivities, vol_sensitivity) * vol_etendue
     percent_error = np.abs(p_los_observed - p_vol_observed) / p_vol_observed * 100
 
     # print()
