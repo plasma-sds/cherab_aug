@@ -1,6 +1,7 @@
 
 import os
 import re
+import numpy as np
 
 from cherab.tools.observers.inversion_grid import EmissivityGrid
 from cherab.aug.bolometry import AUG_2D_TO_CHERAB_1D_GRID_MASK
@@ -81,7 +82,7 @@ def load_blb_result_file(file_path, grid):
                 # calculate the average emissivity over the cell and save it
                 avg_emissivity = (float(raw_grid_values[i1].strip()) + float(raw_grid_values[i2].strip()) +
                                   float(raw_grid_values[i3].strip()) + float(raw_grid_values[i4].strip())) / 4
-                emissivity_values.append(avg_emissivity)
+                emissivity_values.append(avg_emissivity / (4 * np.pi))
 
     return EmissivityGrid(grid, case_id=case_id, emissivities=emissivity_values)
 
