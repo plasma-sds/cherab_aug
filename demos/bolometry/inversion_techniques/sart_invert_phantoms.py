@@ -12,6 +12,8 @@ from cherab.aug.bolometry import load_emissivity_phantom, load_standard_inversio
 # 'FVC1_A_CH1', 'FVC2_E_CH17', 'FLX_A_CH1', 'FHS_A_CH1'
 EXCLUDED_CHANNELS = ['FDC_A_CH1', 'FDC_G_CH28', 'FHC1_A_CH1', 'FHC1_A_CH2', 'FHC1_A_CH3']
 
+NOISE_VARIANCE = 0.04
+
 
 emiss77 = load_emissivity_phantom('AUG_emission_phantom_077')
 emiss = emiss77.emissivities
@@ -43,7 +45,7 @@ print("num_empty_cells", num_empty_cells, "empty cell fraction", num_empty_cells
 
 # Note - only the volume observed power is valid, since that is what is actually measured.
 obs_power = np.dot(vol_weight_matrix, emiss77.emissivities)
-
+obs_with_noise = obs_power * (np.random.randn(len(obs_power)) * NOISE_VARIANCE + 1)
 
 plt.ion()
 emiss77.plot()
@@ -60,6 +62,15 @@ print('SART LOS Inversion total power - {:.4G}MW'.format(inverted_emiss.total_ra
 print('Total iterations', len(conv), 'convergence', conv[-1])
 print('SART RAW LOS correlation - {:.3G}'.format(np.corrcoef(emiss77.emissivities, inverted_emiss.emissivities)[0][1]))
 
+inverted_emiss_vector, conv = invert_sart(los_weight_matrix, obs_with_noise, max_iterations=100)
+inverted_emiss = EmissivityGrid(grid, case_id='Phantom 77 - LOS SART with noise', emissivities=inverted_emiss_vector)
+inverted_emiss.plot()
+plt.axis('equal')
+print()
+print('SART LOS with noise total power - {:.4G}MW'.format(inverted_emiss.total_radiated_power()/1E6))
+print('Total iterations', len(conv), 'convergence', conv[-1])
+print('SART RAW + NOISE LOS correlation - {:.3G}'.format(np.corrcoef(emiss77.emissivities, inverted_emiss.emissivities)[0][1]))
+
 inverted_emiss_vector, conv = invert_constrained_sart(los_weight_matrix, GRID_LAPLACIAN, obs_power, max_iterations=300, beta_laplace=90)
 inverted_emiss = EmissivityGrid(grid, case_id='Phantom 77 - LOS Constrained C-SART method', emissivities=np.squeeze(np.asarray(inverted_emiss_vector)))
 inverted_emiss.plot()
@@ -68,6 +79,15 @@ print()
 print('Constrained C-SART LOS Inversion total power - {:.4G}MW'.format(inverted_emiss.total_radiated_power()/1E6))
 print('Total iterations', len(conv), 'convergence', conv[-1])
 print('C-SART LOS correlation - {:.3G}'.format(np.corrcoef(emiss77.emissivities, inverted_emiss.emissivities)[0][1]))
+
+inverted_emiss_vector, conv = invert_constrained_sart(los_weight_matrix, GRID_LAPLACIAN, obs_with_noise, max_iterations=300, beta_laplace=90)
+inverted_emiss = EmissivityGrid(grid, case_id='Phantom 77 - LOS Constrained C-SART with Noise', emissivities=np.squeeze(np.asarray(inverted_emiss_vector)))
+inverted_emiss.plot()
+plt.axis('equal')
+print()
+print('Constrained C-SART LOS + Noise total power - {:.4G}MW'.format(inverted_emiss.total_radiated_power()/1E6))
+print('Total iterations', len(conv), 'convergence', conv[-1])
+print('C-SART LOS + Noise correlation - {:.3G}'.format(np.corrcoef(emiss77.emissivities, inverted_emiss.emissivities)[0][1]))
 
 
 inverted_emiss_vector, conv = invert_sart(vol_weight_matrix, obs_power, max_iterations=100)
@@ -79,6 +99,15 @@ print('SART Volume Inversion total power - {:.4G}MW'.format(inverted_emiss.total
 print('Total iterations', len(conv), 'convergence', conv[-1])
 print('SART RAW Volume correlation - {:.3G}'.format(np.corrcoef(emiss77.emissivities, inverted_emiss.emissivities)[0][1]))
 
+inverted_emiss_vector, conv = invert_sart(vol_weight_matrix, obs_with_noise, max_iterations=100)
+inverted_emiss = EmissivityGrid(grid, case_id='Phantom 77 - VOL SART with noise', emissivities=inverted_emiss_vector)
+inverted_emiss.plot()
+plt.axis('equal')
+print()
+print('SART Volume + Noise total power - {:.4G}MW'.format(inverted_emiss.total_radiated_power()/1E6))
+print('Total iterations', len(conv), 'convergence', conv[-1])
+print('SART RAW Volume + Noise correlation - {:.3G}'.format(np.corrcoef(emiss77.emissivities, inverted_emiss.emissivities)[0][1]))
+
 inverted_emiss_vector, conv = invert_constrained_sart(vol_weight_matrix, GRID_LAPLACIAN, obs_power, max_iterations=300, beta_laplace=90)
 inverted_emiss = EmissivityGrid(grid, case_id='Phantom 77 - VOL Constrained C-SART method', emissivities=np.squeeze(np.asarray(inverted_emiss_vector)))
 inverted_emiss.plot()
@@ -87,3 +116,12 @@ print()
 print('Constrained C-SART Volume Inversion total power - {:.4G}MW'.format(inverted_emiss.total_radiated_power()/1E6))
 print('Total iterations', len(conv), 'convergence', conv[-1])
 print('C-SART Volume correlation - {:.3G}'.format(np.corrcoef(emiss77.emissivities, inverted_emiss.emissivities)[0][1]))
+
+inverted_emiss_vector, conv = invert_constrained_sart(vol_weight_matrix, GRID_LAPLACIAN, obs_with_noise, max_iterations=300, beta_laplace=90)
+inverted_emiss = EmissivityGrid(grid, case_id='Phantom 77 - VOL C-SART with Noise', emissivities=np.squeeze(np.asarray(inverted_emiss_vector)))
+inverted_emiss.plot()
+plt.axis('equal')
+print()
+print('C-SART Volume + Noise total power - {:.4G}MW'.format(inverted_emiss.total_radiated_power()/1E6))
+print('Total iterations', len(conv), 'convergence', conv[-1])
+print('C-SART Volume + Noise correlation - {:.3G}'.format(np.corrcoef(emiss77.emissivities, inverted_emiss.emissivities)[0][1]))
