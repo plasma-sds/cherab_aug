@@ -73,7 +73,7 @@ def plot_detector_sightline(world, detector, percent_error):
     centre_point = detector.centre_point
     sightline_vec = centre_point.vector_to(detector._slit.centre_point)
 
-    hit_point = find_wall_intersection(world, centre_point, sightline_vec)
+    hit_point, primitive = find_wall_intersection(world, centre_point, sightline_vec)
 
     # Traverse the ray with equation for a parametric line,
     # i.e. t=0->1 traverses the ray path.

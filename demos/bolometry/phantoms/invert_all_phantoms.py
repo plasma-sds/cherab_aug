@@ -2,7 +2,7 @@
 import csv
 import os
 import numpy as np
-import scipy
+import pickle
 import matplotlib.pyplot as plt
 
 from cherab.tools.inversions import invert_sart, invert_constrained_sart
@@ -41,6 +41,11 @@ flx = load_default_bolometer_config('FLX', inversion_grid=grid)
 
 detector_keys, los_weight_matrix, vol_weight_matrix = assemble_weight_matrix([fhc, flh, fhs, fvc, fdc, flx],
                                                                              excluded_detectors=EXCLUDED_CHANNELS)
+etendue_error_factor_dict = pickle.load(open('/home/matt/CCFE/cherab/aug/demos/bolometry/etendue_comparison/aug_etendue_error_factor.pickle', 'rb'))
+etendue_error_factor = np.zeros(len(detector_keys))
+for i in range(len(detector_keys)):
+    etendue_error_factor[i] = etendue_error_factor_dict[detector_keys[i]]
+
 
 # invert all 94 phantoms
 for i in range(94):
@@ -58,11 +63,15 @@ for i in range(94):
     plt.axis('equal')
     plt.savefig(os.path.join(OUTPUT_DIR, "ph" + str(phantom_index).zfill(2) + "_phantom_emissivity.png"))
 
-    # calculate observed power - uses volume method only since this is realistic
-    observed_power = np.dot(vol_weight_matrix, emissivities)
-    obs_with_noise = observed_power * (np.random.randn(len(observed_power)) * NOISE_VARIANCE + 1)
+    # calculate observed power - uses volume method only since this is what is actually measured by the detector
+    vol_obs_power = np.dot(vol_weight_matrix, emissivities)
+    vol_obs_with_noise = vol_obs_power * (np.random.randn(len(vol_obs_power)) * NOISE_VARIANCE + 1)
+    # Note - sightline version is same as volume obs version but with different etendue, as calculated per approximate formula
+    # This is being applied as a correction factor, which effectively adds extra noise.
+    los_obs_power = vol_obs_power / etendue_error_factor
+    los_obs_with_noise = vol_obs_with_noise / etendue_error_factor  # keep noise the same in both data sets
 
-    inverted_emiss_vector, conv = invert_sart(los_weight_matrix, observed_power, max_iterations=150)
+    inverted_emiss_vector, conv = invert_sart(los_weight_matrix, los_obs_power, max_iterations=150)
     inverted_emiss = EmissivityGrid(grid, case_id='Phantom {} - LOS SART method'.format(str(phantom_index).zfill(2)), emissivities=inverted_emiss_vector)
     inverted_emiss.plot()
     plt.axis('equal')
@@ -71,13 +80,13 @@ for i in range(94):
     row.append(float('{:.3G}'.format(np.corrcoef(emiss_phantom.emissivities, inverted_emiss.emissivities)[0][1])))
     row.append(len(conv))
 
-    inverted_emiss_vector, conv = invert_sart(los_weight_matrix, obs_with_noise, max_iterations=150)
+    inverted_emiss_vector, conv = invert_sart(los_weight_matrix, los_obs_with_noise, max_iterations=150)
     inverted_emiss = EmissivityGrid(grid, case_id='Phantom {} - LOS SART + Noise method'.format(str(phantom_index).zfill(2)), emissivities=inverted_emiss_vector)
     row.append(float('{:.4G}'.format(inverted_emiss.total_radiated_power()/1E6)))
     row.append(float('{:.3G}'.format(np.corrcoef(emiss_phantom.emissivities, inverted_emiss.emissivities)[0][1])))
     row.append(len(conv))
 
-    inverted_emiss_vector, conv = invert_sart(vol_weight_matrix, observed_power, max_iterations=150)
+    inverted_emiss_vector, conv = invert_sart(vol_weight_matrix, vol_obs_power, max_iterations=150)
     inverted_emiss = EmissivityGrid(grid, case_id='Phantom {} - VOL SART method'.format(str(phantom_index).zfill(2)), emissivities=inverted_emiss_vector)
     inverted_emiss.plot()
     plt.axis('equal')
@@ -86,37 +95,37 @@ for i in range(94):
     row.append(float('{:.3G}'.format(np.corrcoef(emiss_phantom.emissivities, inverted_emiss.emissivities)[0][1])))
     row.append(len(conv))
 
-    inverted_emiss_vector, conv = invert_sart(vol_weight_matrix, obs_with_noise, max_iterations=150)
+    inverted_emiss_vector, conv = invert_sart(vol_weight_matrix, vol_obs_with_noise, max_iterations=150)
     inverted_emiss = EmissivityGrid(grid, case_id='Phantom {} - VOL SART + Noise method'.format(str(phantom_index).zfill(2)), emissivities=inverted_emiss_vector)
     row.append(float('{:.4G}'.format(inverted_emiss.total_radiated_power()/1E6)))
     row.append(float('{:.3G}'.format(np.corrcoef(emiss_phantom.emissivities, inverted_emiss.emissivities)[0][1])))
     row.append(len(conv))
 
-    inverted_emiss_vector, conv = invert_constrained_sart(los_weight_matrix, GRID_LAPLACIAN, observed_power, max_iterations=150, beta_laplace=1000)
+    inverted_emiss_vector, conv = invert_constrained_sart(los_weight_matrix, GRID_LAPLACIAN, los_obs_power, max_iterations=150, beta_laplace=1000)
     inverted_emiss = EmissivityGrid(grid, case_id='Phantom {} - CSART LOS method'.format(str(phantom_index).zfill(2)), emissivities=np.squeeze(np.asarray(inverted_emiss_vector)))
     row.append(float('{:.4G}'.format(inverted_emiss.total_radiated_power()/1E6)))
     row.append(float('{:.3G}'.format(np.corrcoef(emiss_phantom.emissivities, inverted_emiss.emissivities)[0][1])))
     row.append(len(conv))
 
-    inverted_emiss_vector, conv = invert_constrained_sart(los_weight_matrix, GRID_LAPLACIAN, obs_with_noise, max_iterations=150, beta_laplace=1000)
+    inverted_emiss_vector, conv = invert_constrained_sart(los_weight_matrix, GRID_LAPLACIAN, los_obs_with_noise, max_iterations=150, beta_laplace=1000)
     inverted_emiss = EmissivityGrid(grid, case_id='Phantom {} - CSART LOS + Noise method'.format(str(phantom_index).zfill(2)), emissivities=np.squeeze(np.asarray(inverted_emiss_vector)))
     row.append(float('{:.4G}'.format(inverted_emiss.total_radiated_power()/1E6)))
     row.append(float('{:.3G}'.format(np.corrcoef(emiss_phantom.emissivities, inverted_emiss.emissivities)[0][1])))
     row.append(len(conv))
 
-    inverted_emiss_vector, conv = invert_constrained_sart(vol_weight_matrix, GRID_LAPLACIAN, observed_power, max_iterations=150, beta_laplace=1000)
+    inverted_emiss_vector, conv = invert_constrained_sart(vol_weight_matrix, GRID_LAPLACIAN, vol_obs_power, max_iterations=150, beta_laplace=1000)
     inverted_emiss = EmissivityGrid(grid, case_id='Phantom {} - CSART Volume method'.format(str(phantom_index).zfill(2)), emissivities=np.squeeze(np.asarray(inverted_emiss_vector)))
     row.append(float('{:.4G}'.format(inverted_emiss.total_radiated_power()/1E6)))
     row.append(float('{:.3G}'.format(np.corrcoef(emiss_phantom.emissivities, inverted_emiss.emissivities)[0][1])))
     row.append(len(conv))
 
-    inverted_emiss_vector, conv = invert_constrained_sart(vol_weight_matrix, GRID_LAPLACIAN, obs_with_noise, max_iterations=150, beta_laplace=1000)
+    inverted_emiss_vector, conv = invert_constrained_sart(vol_weight_matrix, GRID_LAPLACIAN, vol_obs_with_noise, max_iterations=150, beta_laplace=1000)
     inverted_emiss = EmissivityGrid(grid, case_id='Phantom {} - CSART Volume + Noise method'.format(str(phantom_index).zfill(2)), emissivities=np.squeeze(np.asarray(inverted_emiss_vector)))
     row.append(float('{:.4G}'.format(inverted_emiss.total_radiated_power()/1E6)))
     row.append(float('{:.3G}'.format(np.corrcoef(emiss_phantom.emissivities, inverted_emiss.emissivities)[0][1])))
     row.append(len(conv))
 
-    inverted_emiss_vector, conv = invert_constrained_sart(los_weight_matrix, GRID_LAPLACIAN, observed_power, max_iterations=150, beta_laplace=80)
+    inverted_emiss_vector, conv = invert_constrained_sart(los_weight_matrix, GRID_LAPLACIAN, los_obs_power, max_iterations=150, beta_laplace=80)
     inverted_emiss = EmissivityGrid(grid, case_id='Phantom {} - CSART LOS method'.format(str(phantom_index).zfill(2)), emissivities=np.squeeze(np.asarray(inverted_emiss_vector)))
     inverted_emiss.plot()
     plt.axis('equal')
@@ -125,13 +134,13 @@ for i in range(94):
     row.append(float('{:.3G}'.format(np.corrcoef(emiss_phantom.emissivities, inverted_emiss.emissivities)[0][1])))
     row.append(len(conv))
 
-    inverted_emiss_vector, conv = invert_constrained_sart(los_weight_matrix, GRID_LAPLACIAN, obs_with_noise, max_iterations=150, beta_laplace=80)
+    inverted_emiss_vector, conv = invert_constrained_sart(los_weight_matrix, GRID_LAPLACIAN, los_obs_with_noise, max_iterations=150, beta_laplace=80)
     inverted_emiss = EmissivityGrid(grid, case_id='Phantom {} - CSART LOS + Noise method'.format(str(phantom_index).zfill(2)), emissivities=np.squeeze(np.asarray(inverted_emiss_vector)))
     row.append(float('{:.4G}'.format(inverted_emiss.total_radiated_power()/1E6)))
     row.append(float('{:.3G}'.format(np.corrcoef(emiss_phantom.emissivities, inverted_emiss.emissivities)[0][1])))
     row.append(len(conv))
 
-    inverted_emiss_vector, conv = invert_constrained_sart(vol_weight_matrix, GRID_LAPLACIAN, observed_power, max_iterations=150, beta_laplace=80)
+    inverted_emiss_vector, conv = invert_constrained_sart(vol_weight_matrix, GRID_LAPLACIAN, vol_obs_power, max_iterations=150, beta_laplace=80)
     inverted_emiss = EmissivityGrid(grid, case_id='Phantom {} - CSART Volume method'.format(str(phantom_index).zfill(2)), emissivities=np.squeeze(np.asarray(inverted_emiss_vector)))
     inverted_emiss.plot()
     plt.axis('equal')
@@ -140,7 +149,7 @@ for i in range(94):
     row.append(float('{:.3G}'.format(np.corrcoef(emiss_phantom.emissivities, inverted_emiss.emissivities)[0][1])))
     row.append(len(conv))
 
-    inverted_emiss_vector, conv = invert_constrained_sart(vol_weight_matrix, GRID_LAPLACIAN, obs_with_noise, max_iterations=150, beta_laplace=80)
+    inverted_emiss_vector, conv = invert_constrained_sart(vol_weight_matrix, GRID_LAPLACIAN, vol_obs_with_noise, max_iterations=150, beta_laplace=80)
     inverted_emiss = EmissivityGrid(grid, case_id='Phantom {} - CSART Volume + Noise method'.format(str(phantom_index).zfill(2)), emissivities=np.squeeze(np.asarray(inverted_emiss_vector)))
     row.append(float('{:.4G}'.format(inverted_emiss.total_radiated_power()/1E6)))
     row.append(float('{:.3G}'.format(np.corrcoef(emiss_phantom.emissivities, inverted_emiss.emissivities)[0][1])))
