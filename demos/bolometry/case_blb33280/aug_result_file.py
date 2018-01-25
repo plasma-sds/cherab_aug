@@ -1,7 +1,9 @@
 
 import os
+import pickle
 import numpy as np
 import matplotlib.pyplot as plt
+from matplotlib import rc
 
 from raysect.core import World
 
@@ -10,6 +12,11 @@ from cherab.tools.observers.inversion_grid import EmissivityGrid
 from cherab.aug.bolometry import load_standard_inversion_grid, load_blb_config_file, load_blb_result_file, load_default_bolometer_config
 from cherab.aug.machine import plot_aug_wall_outline, import_mesh_segment, VESSEL, PSL, ICRH, DIVERTOR, A_B_COILS
 from cherab.aug.bolometry import FDC_TUBE, FLX_TUBE, FVC_TUBE, FHS_TUBE, load_default_bolometer_config
+
+
+# Make Latex available in matplotlib figures
+rc('text', usetex=True)
+rc('font', **{'family': 'serif', 'serif': ['Computer Modern']})
 
 
 cmap = plt.cm.viridis
@@ -29,6 +36,8 @@ result_blb33280_raw = load_blb_result_file(os.path.join(AUG_BLB_CASE_DIRECTORY, 
 
 result_blb33280 = EmissivityGrid(grid, result_blb33280_raw.case_id, result_blb33280_raw.description, emissivities=np.clip(result_blb33280_raw.emissivities, 0, None))
 
+etendue_error_factor_dict = pickle.load(open('/home/matt/CCFE/cherab/aug/demos/bolometry/etendue_comparison/aug_etendue_error_factor.pickle', 'rb'))
+
 
 def process_detector_error(detector, emission_profile):
 
@@ -40,9 +49,12 @@ def process_detector_error(detector, emission_profile):
     l_vol = vol_sensitivity.sum()
     los_to_vol_factor = l_vol / l_los
 
-    p_los_observed = np.dot(emission_profile.emissivities, los_sensitivity) * los_to_vol_factor * vol_etendue
+    los_etendue_error_factor = etendue_error_factor_dict[detector.detector_id]  # error due to approximate etendue
+    p_los_geom = np.dot(emission_profile.emissivities, los_sensitivity) * los_to_vol_factor * vol_etendue
+    p_los_full = p_los_geom / los_etendue_error_factor
     p_vol_observed = np.dot(emission_profile.emissivities, vol_sensitivity) * vol_etendue
-    percent_error = np.abs(p_los_observed - p_vol_observed) / p_vol_observed * 100
+    percent_error_geom = np.abs(p_los_geom - p_vol_observed) / p_vol_observed * 100
+    percent_error_full = np.abs(p_los_full - p_vol_observed) / p_vol_observed * 100
 
     # print()
     # print(detector.detector_id)
@@ -53,7 +65,7 @@ def process_detector_error(detector, emission_profile):
     # print("p_vol_observed", p_vol_observed)
     # print("% error", percent_error)
 
-    return p_los_observed, p_vol_observed, percent_error
+    return p_los_geom, p_los_full, p_vol_observed, percent_error_geom, percent_error_full
 
 
 def plot_detector_sightline(world, detector, percent_error):
@@ -114,65 +126,82 @@ process_detector_error(flx['FLX_A_CH2'], result_blb33280)
 process_detector_error(fhc['FHC3_K_CH41'], result_blb33280)
 
 
-model_percent_errors = {}
-
-flx_los_obs = []
+geom_model_percent_errors = {}
+full_model_percent_errors = {}
+flx_los_geom = []
+flx_los_full = []
 flx_vol_obs = []
 for detector in flx:
     if detector.detector_id not in EXCLUDED_CHANNELS:
-        p_los_observed, p_vol_observed, percent_error = process_detector_error(detector, result_blb33280)
-        flx_los_obs.append(p_los_observed)
+        p_los_geom, p_los_full, p_vol_observed, percent_error_geom, percent_error_full = process_detector_error(detector, result_blb33280)
+        flx_los_geom.append(p_los_geom)
+        flx_los_full.append(p_los_full)
         flx_vol_obs.append(p_vol_observed)
-        model_percent_errors[percent_error] = (detector, flx_world)
+        geom_model_percent_errors[percent_error_geom] = (detector, flx_world)
+        full_model_percent_errors[percent_error_full] = (detector, flx_world)
 
-fdc_los_obs = []
+fdc_los_geom = []
+fdc_los_full = []
 fdc_vol_obs = []
 for detector in fdc:
     if detector.detector_id not in EXCLUDED_CHANNELS:
-        p_los_observed, p_vol_observed, percent_error = process_detector_error(detector, result_blb33280)
-        fdc_los_obs.append(p_los_observed)
+        p_los_geom, p_los_full, p_vol_observed, percent_error_geom, percent_error_full = process_detector_error(detector, result_blb33280)
+        fdc_los_geom.append(p_los_geom)
+        fdc_los_full.append(p_los_full)
         fdc_vol_obs.append(p_vol_observed)
-        model_percent_errors[percent_error] = (detector, fdc_world)
+        geom_model_percent_errors[percent_error_geom] = (detector, fdc_world)
+        full_model_percent_errors[percent_error_full] = (detector, fdc_world)
 
-fvc_los_obs = []
+fvc_los_geom = []
+fvc_los_full = []
 fvc_vol_obs = []
 for detector in fvc:
     if detector.detector_id not in EXCLUDED_CHANNELS:
-        p_los_observed, p_vol_observed, percent_error = process_detector_error(detector, result_blb33280)
-        fvc_los_obs.append(p_los_observed)
+        p_los_geom, p_los_full, p_vol_observed, percent_error_geom, percent_error_full = process_detector_error(detector, result_blb33280)
+        fvc_los_geom.append(p_los_geom)
+        fvc_los_full.append(p_los_full)
         fvc_vol_obs.append(p_vol_observed)
-        model_percent_errors[percent_error] = (detector, fvc_world)
+        geom_model_percent_errors[percent_error_geom] = (detector, fvc_world)
+        full_model_percent_errors[percent_error_full] = (detector, fvc_world)
 
-fhs_los_obs = []
+fhs_los_geom = []
+fhs_los_full = []
 fhs_vol_obs = []
 for detector in fhs:
     if detector.detector_id not in EXCLUDED_CHANNELS:
-        p_los_observed, p_vol_observed, percent_error = process_detector_error(detector, result_blb33280)
-        fhs_los_obs.append(p_los_observed)
+        p_los_geom, p_los_full, p_vol_observed, percent_error_geom, percent_error_full = process_detector_error(detector, result_blb33280)
+        fhs_los_geom.append(p_los_geom)
+        fhs_los_full.append(p_los_full)
         fhs_vol_obs.append(p_vol_observed)
-        model_percent_errors[percent_error] = (detector, fhs_world)
+        geom_model_percent_errors[percent_error_geom] = (detector, fhs_world)
+        full_model_percent_errors[percent_error_full] = (detector, fhs_world)
 
-fhc_los_obs = []
+fhc_los_geom = []
+fhc_los_full = []
 fhc_vol_obs = []
 for detector in fhc:
     if detector.detector_id not in EXCLUDED_CHANNELS:
-        p_los_observed, p_vol_observed, percent_error = process_detector_error(detector, result_blb33280)
-        fhc_los_obs.append(p_los_observed)
+        p_los_geom, p_los_full, p_vol_observed, percent_error_geom, percent_error_full = process_detector_error(detector, result_blb33280)
+        fhc_los_geom.append(p_los_geom)
+        fhc_los_full.append(p_los_full)
         fhc_vol_obs.append(p_vol_observed)
-        model_percent_errors[percent_error] = (detector, full_world)
+        geom_model_percent_errors[percent_error_geom] = (detector, full_world)
+        full_model_percent_errors[percent_error_full] = (detector, full_world)
 
-flh_los_obs = []
+flh_los_geom = []
+flh_los_full = []
 flh_vol_obs = []
 for detector in flh:
     if detector.detector_id not in EXCLUDED_CHANNELS:
-        p_los_observed, p_vol_observed, percent_error = process_detector_error(detector, result_blb33280)
-        flh_los_obs.append(p_los_observed)
+        p_los_geom, p_los_full, p_vol_observed, percent_error_geom, percent_error_full = process_detector_error(detector, result_blb33280)
+        flh_los_geom.append(p_los_geom)
+        flh_los_full.append(p_los_full)
         flh_vol_obs.append(p_vol_observed)
-        model_percent_errors[percent_error] = (detector, full_world)
+        geom_model_percent_errors[percent_error_geom] = (detector, full_world)
+        full_model_percent_errors[percent_error_full] = (detector, full_world)
 
 
 plt.ion()
-plt.figure()
 result_blb33280.plot()
 plot_aug_wall_outline()
 
@@ -181,22 +210,44 @@ straight_line = np.linspace(0, 100)
 
 plt.figure()
 plt.plot(straight_line, straight_line, 'k--')
-plt.plot(fhc_los_obs, fhc_vol_obs, 'b.')
-plt.plot(fdc_los_obs, fdc_vol_obs, 'b.')
-plt.plot(flx_los_obs, flx_vol_obs, 'b.')
-plt.plot(fvc_los_obs, fvc_vol_obs, 'b.')
-plt.plot(fhs_los_obs, fhs_vol_obs, 'b.')
-plt.plot(flh_los_obs, flh_vol_obs, 'b.')
-plt.xlabel("Power observed with LOS method (W)")
-plt.ylabel("Power observed with ray-tracing method (W)")
-plt.title("Observed power with LOS VS Ray-tracing - 33280 4.1s")
-plt.xlim(0, 100)
-plt.ylim(0, 100)
+plt.plot(fhc_los_geom, fhc_vol_obs, 'b.')
+plt.plot(fdc_los_geom, fdc_vol_obs, 'b.')
+plt.plot(flx_los_geom, flx_vol_obs, 'b.')
+plt.plot(fvc_los_geom, fvc_vol_obs, 'b.')
+plt.plot(fhs_los_geom, fhs_vol_obs, 'b.')
+plt.plot(flh_los_geom, flh_vol_obs, 'b.')
+plt.xlabel(r"$\Phi_{SR}$ - Power observed with single-ray method (W)")
+plt.ylabel(r"$\Phi_{Vol}$ - Power observed with ray-tracing method (W)")
+plt.title("Observed power with single-ray VS ray-tracing - 33280 4.1s")
+plt.xlim(0, 8)
+plt.ylim(0, 8)
+plt.legend()
+
+plt.figure()
+plt.plot(straight_line, straight_line, 'k--')
+plt.plot(fhc_los_full, fhc_vol_obs, 'b.')
+plt.plot(fdc_los_full, fdc_vol_obs, 'b.')
+plt.plot(flx_los_full, flx_vol_obs, 'b.')
+plt.plot(fvc_los_full, fvc_vol_obs, 'b.')
+plt.plot(fhs_los_full, fhs_vol_obs, 'b.')
+plt.plot(flh_los_full, flh_vol_obs, 'b.')
+plt.xlabel(r"$\Phi_{SR}$ - Power observed with single-ray method (W)")
+plt.ylabel(r"$\Phi_{Vol}$ - Power observed with ray-tracing method (W)")
+plt.title("Observed power with single-ray VS ray-tracing - 33280 4.1s")
+plt.xlim(0, 8)
+plt.ylim(0, 8)
 plt.legend()
 
 
 plt.figure()
-for percent_error in sorted(model_percent_errors.keys()):
-    detector, world = model_percent_errors[percent_error]
+for percent_error in sorted(geom_model_percent_errors.keys()):
+    detector, world = geom_model_percent_errors[percent_error]
+    plot_detector_sightline(world, detector, percent_error)
+plot_aug_wall_outline()
+
+
+plt.figure()
+for percent_error in sorted(full_model_percent_errors.keys()):
+    detector, world = full_model_percent_errors[percent_error]
     plot_detector_sightline(world, detector, percent_error)
 plot_aug_wall_outline()
