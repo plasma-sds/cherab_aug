@@ -1,6 +1,7 @@
 
 import re
 import numpy as np
+import pickle
 import matplotlib.pyplot as plt
 
 from raysect.optical import World
@@ -19,6 +20,8 @@ fhs = load_default_bolometer_config('FHS', parent=world)
 flh = load_default_bolometer_config('FLH', parent=world)
 fhc = load_default_bolometer_config('FHC', parent=world)
 detectors = fvc.foil_detectors + flx.foil_detectors + fdc.foil_detectors + fhs.foil_detectors + flh.foil_detectors + fhc.foil_detectors
+
+etendue_error_factor = {}
 
 
 dtype = np.dtype([('camera', '|S3'), ('channel', np.int32), ('f_Blende', np.float32), ('f_Folie', np.float32),
@@ -50,7 +53,10 @@ for row in mb_etendue_array:
 
 def percentage_etendue_error(rows):
 
-    global detectors
+    global detectors, etendue_error_factor
+
+    aug_etendues = []
+    cherab_etendues = []
 
     percentage_error = []
     for row in rows:
@@ -85,17 +91,25 @@ def percentage_etendue_error(rows):
         mb_omega = mb_area_pinhole * np.cos(np.deg2rad(mb_gamma)) / mb_d**2
         mb_calc_etendue = np.cos(np.deg2rad(mb_alpha)) * mb_area_foil * mb_omega
 
-        cherab_detector.calculate_etendue()
+        cherab_detector.calculate_etendue(ray_count=100000)
         cherab_corrected_etendue = cherab_detector.etendue * mb_mesh_area_reduction
         cherab_percent_error = np.abs(mb_etendue-cherab_corrected_etendue)/mb_etendue * 100
         percentage_error.append(cherab_percent_error)
+
+        etendue_factor = mb_etendue/cherab_corrected_etendue
+        if 0.7 < etendue_factor < 1.3:
+            etendue_error_factor[detector.detector_id] = etendue_factor
+        else:
+            etendue_error_factor[detector.detector_id] = 1.0
 
         print('{}'.format(detector.detector_id),
               'MB {:.4G} m^2 str'.format(mb_etendue),
               'CH {:.4G} m^2 str'.format(cherab_corrected_etendue),
               'ER {:.4G} %'.format(cherab_percent_error))
+        aug_etendues.append(mb_etendue)
+        cherab_etendues.append(cherab_corrected_etendue)
 
-    return percentage_error
+    return percentage_error, aug_etendues, cherab_etendues
 
 
 # this function from - https://gist.github.com/vishalkuo/f4aec300cf6252ed28d3
@@ -123,8 +137,13 @@ def remove_outliers(x, outlier_constant=10):
     return resultList, outliers, nans
 
 
-percentage_errors = percentage_etendue_error(fvc_rows)
+plt.ion()
+percentage_errors, aug_etendues, cherab_etendues = percentage_etendue_error(fvc_rows)
 filtered_percentage_error, outliers, nans = remove_outliers(percentage_errors)
+plt.figure()
+plt.plot(aug_etendues, label='Analytic etendue')
+plt.plot(cherab_etendues, label='ray-traced etendue')
+plt.title('FVC etendues')
 print()
 print("FVC performance")
 print(np.mean(filtered_percentage_error), np.std(filtered_percentage_error))
@@ -132,8 +151,12 @@ print('with n = {} outliers'.format(len(outliers)))
 print('with n = {} nans'.format(len(nans)))
 print()
 print()
-percentage_errors = percentage_etendue_error(flx_rows)
+percentage_errors, aug_etendues, cherab_etendues = percentage_etendue_error(flx_rows)
 filtered_percentage_error, outliers, nans = remove_outliers(percentage_errors)
+plt.figure()
+plt.plot(aug_etendues, label='Analytic etendue')
+plt.plot(cherab_etendues, label='ray-traced etendue')
+plt.title('FLX etendues')
 print()
 print("FLX performance")
 print(np.mean(filtered_percentage_error), np.std(filtered_percentage_error))
@@ -141,8 +164,12 @@ print('with n = {} outliers'.format(len(outliers)))
 print('with n = {} nans'.format(len(nans)))
 print()
 print()
-percentage_errors = percentage_etendue_error(fdc_rows)
+percentage_errors, aug_etendues, cherab_etendues = percentage_etendue_error(fdc_rows)
 filtered_percentage_error, outliers, nans = remove_outliers(percentage_errors)
+plt.figure()
+plt.plot(aug_etendues, label='Analytic etendue')
+plt.plot(cherab_etendues, label='ray-traced etendue')
+plt.title('FDC etendues')
 print()
 print("FDC performance")
 print(np.mean(filtered_percentage_error), np.std(filtered_percentage_error))
@@ -150,8 +177,12 @@ print('with n = {} outliers'.format(len(outliers)))
 print('with n = {} nans'.format(len(nans)))
 print()
 print()
-percentage_errors = percentage_etendue_error(fhs_rows)
+percentage_errors, aug_etendues, cherab_etendues = percentage_etendue_error(fhs_rows)
 filtered_percentage_error, outliers, nans = remove_outliers(percentage_errors)
+plt.figure()
+plt.plot(aug_etendues, label='Analytic etendue')
+plt.plot(cherab_etendues, label='ray-traced etendue')
+plt.title('FHS etendues')
 print()
 print("FHS performance")
 print(np.mean(filtered_percentage_error), np.std(filtered_percentage_error))
@@ -159,8 +190,12 @@ print('with n = {} outliers'.format(len(outliers)))
 print('with n = {} nans'.format(len(nans)))
 print()
 print()
-percentage_errors = percentage_etendue_error(flh_rows)
+percentage_errors, aug_etendues, cherab_etendues = percentage_etendue_error(flh_rows)
 filtered_percentage_error, outliers, nans = remove_outliers(percentage_errors)
+plt.figure()
+plt.plot(aug_etendues, label='Analytic etendue')
+plt.plot(cherab_etendues, label='ray-traced etendue')
+plt.title('FLH etendues')
 print()
 print("FLH performance")
 print(np.mean(filtered_percentage_error), np.std(filtered_percentage_error))
@@ -168,10 +203,120 @@ print('with n = {} outliers'.format(len(outliers)))
 print('with n = {} nans'.format(len(nans)))
 print()
 print()
-percentage_errors = percentage_etendue_error(fhc_rows)
+percentage_errors, aug_etendues, cherab_etendues = percentage_etendue_error(fhc_rows)
 filtered_percentage_error, outliers, nans = remove_outliers(percentage_errors)
+plt.figure()
+plt.plot(aug_etendues, label='Analytic etendue')
+plt.plot(cherab_etendues, label='ray-traced etendue')
+plt.title('FHC etendues')
 print()
 print("FHC performance")
 print(np.mean(filtered_percentage_error), np.std(filtered_percentage_error))
 print('with n = {} outliers'.format(len(outliers)))
 print('with n = {} nans'.format(len(nans)))
+
+
+# Save etendue correction factors
+fh = open('aug_etendue_error_factor.pickle', 'wb')
+pickle.dump(etendue_error_factor, fh)
+fh.close()
+
+
+# print()
+# print()
+# print("Ray Noise Test")
+#
+# fhc27 = fhc['FHC2_G_CH27']
+#
+# etendue = []
+# fhc27.calculate_etendue(ray_count=100)
+# etendue.append(fhc27.etendue)
+# fhc27.calculate_etendue(ray_count=100)
+# etendue.append(fhc27.etendue)
+# fhc27.calculate_etendue(ray_count=100)
+# etendue.append(fhc27.etendue)
+# fhc27.calculate_etendue(ray_count=100)
+# etendue.append(fhc27.etendue)
+# fhc27.calculate_etendue(ray_count=100)
+# etendue.append(fhc27.etendue)
+# fhc27.calculate_etendue(ray_count=100)
+# etendue.append(fhc27.etendue)
+# fhc27.calculate_etendue(ray_count=100)
+# etendue.append(fhc27.etendue)
+# fhc27.calculate_etendue(ray_count=100)
+# etendue.append(fhc27.etendue)
+# fhc27.calculate_etendue(ray_count=100)
+# etendue.append(fhc27.etendue)
+# fhc27.calculate_etendue(ray_count=100)
+# etendue.append(fhc27.etendue)
+# print(np.mean(etendue), np.std(etendue))
+#
+# etendue = []
+# fhc27.calculate_etendue(ray_count=1000)
+# etendue.append(fhc27.etendue)
+# fhc27.calculate_etendue(ray_count=1000)
+# etendue.append(fhc27.etendue)
+# fhc27.calculate_etendue(ray_count=1000)
+# etendue.append(fhc27.etendue)
+# fhc27.calculate_etendue(ray_count=1000)
+# etendue.append(fhc27.etendue)
+# fhc27.calculate_etendue(ray_count=1000)
+# etendue.append(fhc27.etendue)
+# fhc27.calculate_etendue(ray_count=1000)
+# etendue.append(fhc27.etendue)
+# fhc27.calculate_etendue(ray_count=1000)
+# etendue.append(fhc27.etendue)
+# fhc27.calculate_etendue(ray_count=1000)
+# etendue.append(fhc27.etendue)
+# fhc27.calculate_etendue(ray_count=1000)
+# etendue.append(fhc27.etendue)
+# fhc27.calculate_etendue(ray_count=1000)
+# etendue.append(fhc27.etendue)
+# print(np.mean(etendue), np.std(etendue))
+#
+# etendue = []
+# fhc27.calculate_etendue(ray_count=10000)
+# etendue.append(fhc27.etendue)
+# fhc27.calculate_etendue(ray_count=10000)
+# etendue.append(fhc27.etendue)
+# fhc27.calculate_etendue(ray_count=10000)
+# etendue.append(fhc27.etendue)
+# fhc27.calculate_etendue(ray_count=10000)
+# etendue.append(fhc27.etendue)
+# fhc27.calculate_etendue(ray_count=10000)
+# etendue.append(fhc27.etendue)
+# fhc27.calculate_etendue(ray_count=10000)
+# etendue.append(fhc27.etendue)
+# fhc27.calculate_etendue(ray_count=10000)
+# etendue.append(fhc27.etendue)
+# fhc27.calculate_etendue(ray_count=10000)
+# etendue.append(fhc27.etendue)
+# fhc27.calculate_etendue(ray_count=10000)
+# etendue.append(fhc27.etendue)
+# fhc27.calculate_etendue(ray_count=10000)
+# etendue.append(fhc27.etendue)
+# print(np.mean(etendue), np.std(etendue))
+#
+# etendue = []
+# fhc27.calculate_etendue(ray_count=100000)
+# etendue.append(fhc27.etendue)
+# fhc27.calculate_etendue(ray_count=100000)
+# etendue.append(fhc27.etendue)
+# fhc27.calculate_etendue(ray_count=100000)
+# etendue.append(fhc27.etendue)
+# fhc27.calculate_etendue(ray_count=100000)
+# etendue.append(fhc27.etendue)
+# fhc27.calculate_etendue(ray_count=100000)
+# etendue.append(fhc27.etendue)
+# fhc27.calculate_etendue(ray_count=100000)
+# etendue.append(fhc27.etendue)
+# fhc27.calculate_etendue(ray_count=100000)
+# etendue.append(fhc27.etendue)
+# fhc27.calculate_etendue(ray_count=100000)
+# etendue.append(fhc27.etendue)
+# fhc27.calculate_etendue(ray_count=100000)
+# etendue.append(fhc27.etendue)
+# fhc27.calculate_etendue(ray_count=100000)
+# etendue.append(fhc27.etendue)
+# print(np.mean(etendue), np.std(etendue))
+
