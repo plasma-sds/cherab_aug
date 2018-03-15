@@ -19,6 +19,8 @@ rc('text', usetex=True)
 rc('font', **{'family': 'serif', 'serif': ['Computer Modern']})
 
 
+SCALE_CORRECTION = 1000/365
+
 cmap = plt.cm.viridis
 
 # replace with path to your BLB geometry directory
@@ -225,17 +227,17 @@ plt.legend()
 
 plt.figure()
 plt.plot(straight_line, straight_line, 'k--')
-plt.plot(fhc_los_full, fhc_vol_obs, 'b.')
-plt.plot(fdc_los_full, fdc_vol_obs, 'b.')
-plt.plot(flx_los_full, flx_vol_obs, 'b.')
-plt.plot(fvc_los_full, fvc_vol_obs, 'b.')
-plt.plot(fhs_los_full, fhs_vol_obs, 'b.')
-plt.plot(flh_los_full, flh_vol_obs, 'b.')
-plt.xlabel(r"$\Phi_{SR}$ - Power observed with single-ray method (W)")
-plt.ylabel(r"$\Phi_{Vol}$ - Power observed with ray-tracing method (W)")
+plt.plot(np.array(fhc_los_full)*SCALE_CORRECTION, np.array(fhc_vol_obs)*SCALE_CORRECTION, 'b.')
+plt.plot(np.array(fdc_los_full)*SCALE_CORRECTION, np.array(fdc_vol_obs)*SCALE_CORRECTION, 'b.')
+plt.plot(np.array(flx_los_full)*SCALE_CORRECTION, np.array(flx_vol_obs)*SCALE_CORRECTION, 'b.')
+plt.plot(np.array(fvc_los_full)*SCALE_CORRECTION, np.array(fvc_vol_obs)*SCALE_CORRECTION, 'b.')
+plt.plot(np.array(fhs_los_full)*SCALE_CORRECTION, np.array(fhs_vol_obs)*SCALE_CORRECTION, 'b.')
+plt.plot(np.array(flh_los_full)*SCALE_CORRECTION, np.array(flh_vol_obs)*SCALE_CORRECTION, 'b.')
+plt.xlabel(r"$\Phi_{SR}$ - Power observed with single-ray method (mW)")
+plt.ylabel(r"$\Phi_{Vol}$ - Power observed with ray-tracing method (mW)")
 plt.title("Observed power with single-ray VS ray-tracing - 33280 4.1s")
-plt.xlim(0, 8)
-plt.ylim(0, 8)
+plt.xlim(0, 20)
+plt.ylim(0, 20)
 plt.legend()
 
 
