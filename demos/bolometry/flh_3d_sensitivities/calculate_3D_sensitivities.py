@@ -79,7 +79,7 @@ FULL_MESH_SEGMENTS = VESSEL + PSL + ICRH + DIVERTOR + A_B_COILS
 import_mesh_segment(full_world, FULL_MESH_SEGMENTS)
 
 # load detector box
-flh_box = import_stl("/home/matt/CCFE/cadmesh/aug/diagnostics/bolometry/FLH_box.stl", parent=full_world,
+flh_box = import_stl("/home/matt/CCFE/cadmesh/aug/diagnostics/bolometry/FLH_box_no_rfgrid.stl", parent=full_world,
                      material=AbsorbingSurface(), name="FLH_box", scaling=0.001)
 
 # Load FLH detector description
