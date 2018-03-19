@@ -4,6 +4,8 @@ import pickle
 import numpy as np
 import matplotlib.pyplot as plt
 from matplotlib import rc
+from matplotlib.patches import Polygon
+from matplotlib.collections import PatchCollection
 
 from raysect.core import World
 
@@ -204,29 +206,46 @@ for detector in flh:
 
 
 plt.ion()
-result_blb33280.plot()
+patches = []
+for i in range(result_blb33280.count):
+    polygon = Polygon(result_blb33280.grid_geometry.cell_data[i], True)
+    patches.append(polygon)
+
+p = PatchCollection(patches)
+p.set_array(result_blb33280.emissivities * np.pi * 4 / 1E6)
+
+fig, ax = plt.subplots()
+ax.add_collection(p)
+plt.xlim(1, 2.5)
+plt.ylim(-1.5, 1.5)
+title = result_blb33280.case_id + " - Emissivity"
+plt.title(title)
+plt.axis('equal')
+fig.colorbar(p, ax=ax)
 plot_aug_wall_outline()
 
 
 straight_line = np.linspace(0, 100)
 
-plt.figure()
-plt.plot(straight_line, straight_line, 'k--')
-plt.plot(fhc_los_geom, fhc_vol_obs, 'b.')
-plt.plot(fdc_los_geom, fdc_vol_obs, 'b.')
-plt.plot(flx_los_geom, flx_vol_obs, 'b.')
-plt.plot(fvc_los_geom, fvc_vol_obs, 'b.')
-plt.plot(fhs_los_geom, fhs_vol_obs, 'b.')
-plt.plot(flh_los_geom, flh_vol_obs, 'b.')
-plt.xlabel(r"$\Phi_{SR}$ - Power observed with single-ray method (W)")
-plt.ylabel(r"$\Phi_{Vol}$ - Power observed with ray-tracing method (W)")
-plt.title("Observed power with single-ray VS ray-tracing - 33280 4.1s")
-plt.xlim(0, 8)
-plt.ylim(0, 8)
-plt.legend()
+# plt.figure()
+# plt.plot(straight_line, straight_line, 'k--')
+# plt.plot(fhc_los_geom, fhc_vol_obs, 'b.')
+# plt.plot(fdc_los_geom, fdc_vol_obs, 'b.')
+# plt.plot(flx_los_geom, flx_vol_obs, 'b.')
+# plt.plot(fvc_los_geom, fvc_vol_obs, 'b.')
+# plt.plot(fhs_los_geom, fhs_vol_obs, 'b.')
+# plt.plot(flh_los_geom, flh_vol_obs, 'b.')
+# plt.xlabel(r"$\Phi_{SR}$ - Power observed with single-ray method (W)")
+# plt.ylabel(r"$\Phi_{Vol}$ - Power observed with ray-tracing method (W)")
+# plt.title("Observed power with single-ray VS ray-tracing - 33280 4.1s")
+# plt.xlim(0, 8)
+# plt.ylim(0, 8)
+# plt.legend()
 
 plt.figure()
 plt.plot(straight_line, straight_line, 'k--')
+plt.plot(straight_line, straight_line*0.9, color="grey", linestyle='--')
+plt.plot(straight_line, straight_line*1.1, color="grey", linestyle='--')
 plt.plot(np.array(fhc_los_full)*SCALE_CORRECTION, np.array(fhc_vol_obs)*SCALE_CORRECTION, 'b.')
 plt.plot(np.array(fdc_los_full)*SCALE_CORRECTION, np.array(fdc_vol_obs)*SCALE_CORRECTION, 'b.')
 plt.plot(np.array(flx_los_full)*SCALE_CORRECTION, np.array(flx_vol_obs)*SCALE_CORRECTION, 'b.')
@@ -242,14 +261,35 @@ plt.legend()
 
 
 plt.figure()
+plt.plot(straight_line, straight_line, 'k--')
+plt.plot(straight_line, straight_line*0.9, color="grey", linestyle='--')
+plt.plot(straight_line, straight_line*1.1, color="grey", linestyle='--')
+plt.plot(np.array(fhc_los_full)*SCALE_CORRECTION, np.array(fhc_vol_obs)*SCALE_CORRECTION, 'b.')
+plt.plot(np.array(fdc_los_full)*SCALE_CORRECTION, np.array(fdc_vol_obs)*SCALE_CORRECTION, 'b.')
+plt.plot(np.array(flx_los_full)*SCALE_CORRECTION, np.array(flx_vol_obs)*SCALE_CORRECTION, 'b.')
+plt.plot(np.array(fvc_los_full)*SCALE_CORRECTION, np.array(fvc_vol_obs)*SCALE_CORRECTION, 'b.')
+plt.plot(np.array(fhs_los_full)*SCALE_CORRECTION, np.array(fhs_vol_obs)*SCALE_CORRECTION, 'b.')
+plt.plot(np.array(flh_los_full)*SCALE_CORRECTION, np.array(flh_vol_obs)*SCALE_CORRECTION, 'b.')
+plt.xlabel(r"$\Phi_{SR}$ - Power observed with single-ray method (mW)")
+plt.ylabel(r"$\Phi_{Vol}$ - Power observed with ray-tracing method (mW)")
+plt.title("Observed power with single-ray VS ray-tracing - 33280 4.1s")
+plt.legend()
+
+
+
+plt.figure()
 for percent_error in sorted(geom_model_percent_errors.keys()):
     detector, world = geom_model_percent_errors[percent_error]
     plot_detector_sightline(world, detector, percent_error)
 plot_aug_wall_outline()
+max_error = max(geom_model_percent_errors.keys())
+min_error = min(geom_model_percent_errors.keys())
+sm = plt.cm.ScalarMappable(cmap=cmap, norm=plt.Normalize(vmin=min_error, vmax=max_error))
+sm._A = []  # fake up the array of the scalar mappable. Urgh...
+plt.colorbar(sm)
 
-
-plt.figure()
-for percent_error in sorted(full_model_percent_errors.keys()):
-    detector, world = full_model_percent_errors[percent_error]
-    plot_detector_sightline(world, detector, percent_error)
-plot_aug_wall_outline()
+# plt.figure()
+# for percent_error in sorted(full_model_percent_errors.keys()):
+#     detector, world = full_model_percent_errors[percent_error]
+#     plot_detector_sightline(world, detector, percent_error)
+# plot_aug_wall_outline()
