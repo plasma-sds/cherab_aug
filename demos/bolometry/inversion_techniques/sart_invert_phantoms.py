@@ -3,6 +3,8 @@ import numpy as np
 import pickle
 import scipy
 import matplotlib.pyplot as plt
+from matplotlib.patches import Polygon
+from matplotlib.collections import PatchCollection
 
 from cherab.tools.inversions import invert_sart, invert_constrained_sart
 from cherab.tools.observers.inversion_grid import EmissivityGrid
@@ -32,8 +34,7 @@ fvc = load_default_bolometer_config('FVC', inversion_grid=grid)
 fdc = load_default_bolometer_config('FDC', inversion_grid=grid)
 flx = load_default_bolometer_config('FLX', inversion_grid=grid)
 
-
-detector_keys, los_weight_matrix, vol_weight_matrix = assemble_weight_matrix([fhc, flh, fhs, fvc, fdc, flx], excluded_detectors=EXCLUDED_CHANNELS)
+detector_keys, los_weight_matrix, vol_weight_matrix, _, _ = assemble_weight_matrix([fhc, flh, fhs, fvc, fdc, flx], excluded_detectors=EXCLUDED_CHANNELS)
 
 etendue_error_factor_dict = pickle.load(open('/home/matt/CCFE/cherab/aug/demos/bolometry/etendue_comparison/aug_etendue_error_factor.pickle', 'rb'))
 etendue_error_factor = np.zeros(len(detector_keys))
@@ -51,9 +52,46 @@ los_obs_with_noise = vol_obs_with_noise / etendue_error_factor  # keep noise the
 
 
 plt.ion()
-emiss77.plot()
+patches = []
+for i in range(emiss77.count):
+    polygon = Polygon(emiss77.grid_geometry.cell_data[i], True)
+    patches.append(polygon)
+
+p = PatchCollection(patches)
+p.set_array(emiss77.emissivities * np.pi * 4 / 1E6)
+
+fig, ax = plt.subplots()
+ax.add_collection(p)
+plt.xlim(1, 2.5)
+plt.ylim(-1.5, 1.5)
+title = emiss77.case_id + " - Emissivity"
+plt.title(title)
 plt.axis('equal')
+fig.colorbar(p, ax=ax)
+colour_limits = p.get_clim()
 print('Phantom total power - {:.4G}MW'.format(emiss77.total_radiated_power()/1E6))
+
+
+def plot_inversion(inversion, colour_scale):
+
+    patches = []
+    for i in range(inversion.count):
+        polygon = Polygon(inversion.grid_geometry.cell_data[i], True)
+        patches.append(polygon)
+
+    p = PatchCollection(patches)
+    p.set_array(inversion.emissivities * np.pi * 4 / 1E6)
+
+    fig, ax = plt.subplots()
+    ax.add_collection(p)
+    plt.xlim(1, 2.5)
+    plt.ylim(-1.5, 1.5)
+    title = inversion.case_id + " - Emissivity"
+    plt.title(title)
+    plt.axis('equal')
+    fig.colorbar(p, ax=ax)
+    p.set_clim(colour_scale)
+
 
 
 # inverted_emiss_vector, conv = invert_sart(los_weight_matrix, los_obs_power, max_iterations=100)
@@ -67,7 +105,7 @@ print('Phantom total power - {:.4G}MW'.format(emiss77.total_radiated_power()/1E6
 
 inverted_emiss_vector, conv = invert_sart(los_weight_matrix, los_obs_with_noise, max_iterations=100)
 inverted_emiss = EmissivityGrid(grid, case_id='Phantom 77 - LOS SART with noise', emissivities=inverted_emiss_vector)
-inverted_emiss.plot()
+plot_inversion(inverted_emiss, colour_limits)
 plt.axis('equal')
 print()
 print('SART LOS with noise total power - {:.4G}MW'.format(inverted_emiss.total_radiated_power()/1E6))
@@ -85,7 +123,7 @@ print('SART RAW + NOISE LOS correlation - {:.3G}'.format(np.corrcoef(emiss77.emi
 
 inverted_emiss_vector, conv = invert_constrained_sart(los_weight_matrix, GRID_LAPLACIAN, los_obs_with_noise, max_iterations=300, beta_laplace=80)
 inverted_emiss = EmissivityGrid(grid, case_id='Phantom 77 - LOS Constrained C-SART with Noise', emissivities=np.squeeze(np.asarray(inverted_emiss_vector)))
-inverted_emiss.plot()
+plot_inversion(inverted_emiss, colour_limits)
 plt.axis('equal')
 print()
 print('Constrained C-SART LOS + Noise total power - {:.4G}MW'.format(inverted_emiss.total_radiated_power()/1E6))
@@ -104,7 +142,7 @@ print('C-SART LOS + Noise correlation - {:.3G}'.format(np.corrcoef(emiss77.emiss
 
 inverted_emiss_vector, conv = invert_sart(vol_weight_matrix, vol_obs_with_noise, max_iterations=100)
 inverted_emiss = EmissivityGrid(grid, case_id='Phantom 77 - VOL SART with noise', emissivities=inverted_emiss_vector)
-inverted_emiss.plot()
+plot_inversion(inverted_emiss, colour_limits)
 plt.axis('equal')
 print()
 print('SART Volume + Noise total power - {:.4G}MW'.format(inverted_emiss.total_radiated_power()/1E6))
@@ -122,7 +160,7 @@ print('SART RAW Volume + Noise correlation - {:.3G}'.format(np.corrcoef(emiss77.
 
 inverted_emiss_vector, conv = invert_constrained_sart(vol_weight_matrix, GRID_LAPLACIAN, vol_obs_with_noise, max_iterations=300, beta_laplace=80)
 inverted_emiss = EmissivityGrid(grid, case_id='Phantom 77 - VOL C-SART with Noise', emissivities=np.squeeze(np.asarray(inverted_emiss_vector)))
-inverted_emiss.plot()
+plot_inversion(inverted_emiss, colour_limits)
 plt.axis('equal')
 print()
 print('C-SART Volume + Noise total power - {:.4G}MW'.format(inverted_emiss.total_radiated_power()/1E6))
