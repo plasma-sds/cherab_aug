@@ -3,6 +3,8 @@ import re
 import numpy as np
 import pickle
 import matplotlib.pyplot as plt
+import matplotlib
+matplotlib.rcParams.update({'font.size': 12})
 
 from raysect.core import Ray as CoreRay
 from raysect.primitive import import_stl

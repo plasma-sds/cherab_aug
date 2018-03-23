@@ -3,6 +3,8 @@ import os
 import numpy as np
 import matplotlib.pyplot as plt
 from matplotlib import rc
+import matplotlib
+matplotlib.rcParams.update({'font.size': 12})
 
 
 # Make Latex available in matplotlib figures
