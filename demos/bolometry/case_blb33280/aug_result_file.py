@@ -20,7 +20,6 @@ from cherab.aug.bolometry import FDC_TUBE, FLX_TUBE, FVC_TUBE, FHS_TUBE, load_de
 
 # Make Latex available in matplotlib figures
 rc('text', usetex=True)
-rc('font', **{'family': 'serif', 'serif': ['Computer Modern']})
 
 
 SCALE_CORRECTION = 1000/365
@@ -49,7 +48,7 @@ def process_detector_error(detector, emission_profile):
 
     los_sensitivity = detector._los_radiance_sensitivity.sensitivity
     vol_sensitivity = detector._volume_radiance_sensitivity.sensitivity
-    vol_etendue = detector._volume_observer.etendue
+    vol_etendue = detector._volume_observer.sensitivity
 
     l_los = los_sensitivity.sum()
     l_vol = vol_sensitivity.sum()

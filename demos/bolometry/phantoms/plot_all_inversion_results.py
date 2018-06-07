@@ -9,7 +9,6 @@ matplotlib.rcParams.update({'font.size': 12})
 
 # Make Latex available in matplotlib figures
 rc('text', usetex=True)
-rc('font', **{'family': 'serif', 'serif': ['Computer Modern']})
 
 
 phantom_results_fh = open(os.path.join(os.path.split(__file__)[0], 'inverted_phantoms.csv'), 'r')
@@ -66,6 +65,8 @@ plt.plot([0, 1], [0, 1], 'k--')
 plt.plot(los_rhos, vol_rhos, 'C0.', label=r'$\beta_L = 0$')
 plt.plot(los_rhos_1000, vol_rhos_1000, 'C1.', label=r'$\beta_L = 0.001$')
 plt.plot(los_rhos_80, vol_rhos_80, 'C2.', label=r'$\beta_L = 0.0125$')
+plt.text(0.225, 0.8, 'volume ray-tracing better', rotation=37.5)
+plt.text(0.45, 0.45, 'single-ray better', rotation=37.5)
 plt.xlim(0, 1)
 plt.ylim(0, 1)
 plt.xlabel(r'$\rho_c$ - Single-ray method')
