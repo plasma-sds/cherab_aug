@@ -3,6 +3,7 @@ import os
 
 from raysect.primitive import Mesh, import_stl
 from raysect.optical.material import AbsorbingSurface
+from raysect.optical.library.metal import RoughTungsten
 
 
 try:
@@ -61,16 +62,16 @@ DIVERTOR = [
     os.path.join(CADMESH_PATH, 'aug/divertor/divertor_s16-01.rsm'),
 ]
 
-A_B_COILS = [
-    os.path.join(CADMESH_PATH, 'aug/a_b_coils/A-coils_s01-16_2010_10_21.rsm'),
-    os.path.join(CADMESH_PATH, 'aug/a_b_coils/cover_Bl-coils_s01-s16.rsm'),
-    os.path.join(CADMESH_PATH, 'aug/a_b_coils/cover_Bu-coils_s01-s16.rsm'),
-]
+# A_B_COILS = [
+#     os.path.join(CADMESH_PATH, 'aug/a_b_coils/A-coils_s01-16_2010_10_21.rsm'),
+#     os.path.join(CADMESH_PATH, 'aug/a_b_coils/cover_Bl-coils_s01-s16.rsm'),
+#     os.path.join(CADMESH_PATH, 'aug/a_b_coils/cover_Bu-coils_s01-s16.rsm'),
+# ]
 
-AUG_FULL_MESH = VESSEL + INNER_HEAT_SHIELD + PSL + ICRH + DIVERTOR + A_B_COILS
+AUG_FULL_MESH = VESSEL + INNER_HEAT_SHIELD + PSL + ICRH + DIVERTOR  # + A_B_COILS
 
 
-def import_mesh_segment(world, mesh_list, material=None):
+def import_aug_mesh(world, material=RoughTungsten(0.29)):
     """Imports the full AUG first wall mesh with default materials.
 
     :param str material: flag for material setting to us. 'ABSORBING' indicates
@@ -79,7 +80,7 @@ def import_mesh_segment(world, mesh_list, material=None):
 
     material = material or AbsorbingSurface()
 
-    for mesh_path in mesh_list:
+    for mesh_path in AUG_FULL_MESH:
         print("importing {}  ...".format(os.path.split(mesh_path)[1]))
         directory, filename = os.path.split(mesh_path)
         mesh_name, ext = filename.split('.')
