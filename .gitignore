@@ -1,0 +1,19 @@
+# Ignore everything user-created in the data directory
+/demos/AXUV/data/*
+# Ignore Python cache files
+*__pycache__
+# Ignore development-related directories
+*.egg-info
+# Ignore the CAD mesh directories of the PFCs since they are quite large for GitHub
+/cherab/aug/a_b_coils
+/cherab/aug/diagnostics
+/cherab/aug/divertor
+/cherab/aug/icrh
+/cherab/aug/vessel
+
+# Do not ignore the datafile containing the neon lines
+!/demos/AXUV/data/ne.csv
+
+# Do not ignore the demos spi input file
+!/demos/AXUV/data/spi_input.h5
+
